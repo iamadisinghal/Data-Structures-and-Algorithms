@@ -1,0 +1,1 @@
+A simple use case of third way could be to find the index of kth smallest number - O(1) after sorting
