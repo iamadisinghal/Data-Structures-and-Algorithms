@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Study Plan Checklist — CAT · GATE ST + DA · ISI MStat</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+  --bg:#F1F4F2; --surface:#FFFFFF; --ink:#172022; --muted:#5B6A6C; --line:#D3DAD7;
+  --accent:#0E6F68; --accent-soft:#DDEEEB; --due:#8A3B12; --due-soft:#F6E7DF;
+  --exam:#1F2F5C; --exam-soft:#E3E8F5;
+  --font:"IBM Plex Sans",-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#0F1514; --surface:#171F1E; --ink:#E5EBE9; --muted:#93A19E; --line:#2A3634;
+    --accent:#4FB8AE; --accent-soft:#183531; --due:#E0A274; --due-soft:#3A2418;
+    --exam:#A9B8E8; --exam-soft:#1D2540;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0F1514; --surface:#171F1E; --ink:#E5EBE9; --muted:#93A19E; --line:#2A3634;
+  --accent:#4FB8AE; --accent-soft:#183531; --due:#E0A274; --due-soft:#3A2418;
+  --exam:#A9B8E8; --exam-soft:#1D2540;
+}
+html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 16px);}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased}
+a{color:var(--accent)}
+img{max-width:100%}
+
+.wrap{max-width:1180px;margin:0 auto;padding:32px 20px 80px;display:grid;grid-template-columns:1fr;gap:32px}
+@media (min-width:1080px){
+  .wrap{grid-template-columns:230px minmax(0,1fr);gap:48px}
+  .side{position:sticky;top:24px;align-self:start}
+}
+
+/* header */
+header{grid-column:1/-1}
+h1{font-size:clamp(1.7rem,3.4vw,2.4rem);font-weight:600;letter-spacing:-0.01em;line-height:1.15;margin:0 0 10px}
+.lede{color:var(--muted);max-width:68ch;margin:0 0 22px;font-size:1.02rem}
+.facts{display:flex;flex-wrap:wrap;gap:8px 22px;font-size:.95rem;margin-bottom:26px}
+.facts b{font-weight:600}
+
+/* timeline */
+.timeline{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:18px 18px 14px;overflow-x:auto}
+.tl-track{position:relative;height:34px;min-width:620px;border-radius:6px;display:flex;overflow:visible}
+.tl-seg{position:relative;height:100%;display:flex;align-items:center;padding-left:10px;font-size:.82rem;font-weight:500;color:var(--ink);border-right:2px solid var(--bg);white-space:nowrap;overflow:hidden}
+.tl-seg:first-child{border-radius:6px 0 0 6px}.tl-seg:last-child{border-radius:0 6px 6px 0;border-right:0}
+.tl-seg.p1{background:var(--accent-soft)}.tl-seg.p2{background:var(--accent-soft);filter:brightness(.96)}
+.tl-seg.p3{background:var(--accent);color:#fff}.tl-seg.p4{background:var(--accent-soft)}
+.tl-marks{position:relative;height:44px;min-width:620px;margin-top:4px}
+.tl-mark{position:absolute;top:0;transform:translateX(-50%);text-align:center;font-size:.78rem;line-height:1.2;color:var(--exam)}
+.tl-mark::before{content:"";display:block;width:2px;height:12px;background:var(--exam);margin:0 auto 4px}
+.tl-mark b{display:block;font-weight:600}
+.tl-today{position:absolute;top:-8px;width:2px;height:50px;background:var(--due);transform:translateX(-50%)}
+.tl-today span{position:absolute;top:-16px;left:6px;font-size:.72rem;color:var(--due);white-space:nowrap}
+
+/* side nav */
+.side nav{display:flex;flex-direction:column;gap:2px}
+.side a{display:flex;justify-content:space-between;gap:10px;text-decoration:none;color:var(--ink);padding:8px 10px;border-radius:6px;font-size:.92rem;border-left:3px solid transparent}
+.side a:hover{background:var(--surface)}
+.side a.active{border-left-color:var(--accent);background:var(--surface)}
+.side a .pct{color:var(--muted);font-variant-numeric:tabular-nums;font-size:.85rem}
+.side .tools{margin-top:18px;display:flex;flex-direction:column;gap:8px}
+.btn{font:inherit;font-size:.88rem;padding:7px 12px;border-radius:6px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer}
+.btn:hover{border-color:var(--accent)}
+.btn:focus-visible,input:focus-visible+label,.side a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.total{font-size:.88rem;color:var(--muted);padding:0 10px}
+
+/* main */
+main{min-width:0}
+section.phase{margin-bottom:56px}
+.phase-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 16px;margin-bottom:6px;border-bottom:2px solid var(--ink);padding-bottom:8px}
+.phase-head h2{font-size:1.45rem;font-weight:600;margin:0;letter-spacing:-0.01em}
+.phase-head .dates{color:var(--muted);font-size:.95rem}
+.phase-head .prog{margin-left:auto;font-size:.9rem;color:var(--muted);font-variant-numeric:tabular-nums}
+.phase-intro{color:var(--muted);max-width:70ch;margin:10px 0 22px}
+.phase-intro p{margin:0 0 8px}
+
+.block{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px 18px 10px;margin-bottom:14px}
+.block-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 14px;margin-bottom:8px}
+.block-head h3{font-size:1.05rem;font-weight:600;margin:0}
+.block-head .when{color:var(--muted);font-size:.9rem}
+.due{margin-left:auto;font-size:.8rem;font-weight:500;color:var(--due);background:var(--due-soft);padding:2px 9px;border-radius:999px;white-space:nowrap}
+.due.exam{color:var(--exam);background:var(--exam-soft)}
+.note{font-size:.9rem;color:var(--muted);margin:0 0 8px;max-width:70ch}
+
+ul.check{list-style:none;margin:0;padding:0}
+ul.check li{display:grid;grid-template-columns:22px 1fr;gap:10px;padding:7px 0;border-top:1px solid var(--line);align-items:start}
+ul.check li:first-child{border-top:0}
+ul.check input{appearance:none;-webkit-appearance:none;width:20px;height:20px;margin:2px 0 0;border:1.5px solid var(--muted);border-radius:5px;background:var(--surface);cursor:pointer;position:relative}
+ul.check input:checked{background:var(--accent);border-color:var(--accent)}
+ul.check input:checked::after{content:"";position:absolute;left:6px;top:2px;width:5px;height:10px;border:solid #fff;border-width:0 2px 2px 0;transform:rotate(45deg)}
+ul.check label{cursor:pointer;max-width:72ch}
+ul.check input:checked+label{color:var(--muted);text-decoration:line-through;text-decoration-color:var(--line)}
+ul.check label small{display:block;color:var(--muted);font-size:.86rem;margin-top:1px}
+.tag{display:inline-block;font-size:.74rem;font-weight:500;padding:1px 7px;border-radius:4px;margin-right:6px;vertical-align:1px;background:var(--bg);color:var(--muted);border:1px solid var(--line)}
+.tag.cat{color:var(--exam);border-color:transparent;background:var(--exam-soft)}
+.tag.st{color:var(--accent);border-color:transparent;background:var(--accent-soft)}
+.tag.da{color:var(--due);border-color:transparent;background:var(--due-soft)}
+
+/* templates table */
+table{border-collapse:collapse;width:100%;font-size:.93rem}
+.tbl{overflow-x:auto;margin:6px 0 10px}
+th,td{text-align:left;padding:8px 10px;border-top:1px solid var(--line);vertical-align:top}
+th{font-weight:600;border-top:0;color:var(--muted);font-size:.86rem}
+td:first-child{white-space:nowrap;font-weight:500}
+
+.rules ol{margin:0;padding-left:20px}
+.rules li{margin:0 0 8px;max-width:72ch}
+
+footer{grid-column:1/-1;color:var(--muted);font-size:.85rem;border-top:1px solid var(--line);padding-top:14px;max-width:80ch}
+
+@media (prefers-reduced-motion:no-preference){ul.check label{transition:color .15s}}
+@media print{
+  body{background:#fff;color:#000;font-size:11.5px}
+  .wrap{display:block;padding:0;max-width:none}
+  .side,.tl-today{display:none}
+  .block,.timeline{border-color:#bbb;break-inside:avoid;box-shadow:none}
+  section.phase{break-before:page}
+  section.phase:first-of-type{break-before:auto}
+  ul.check input{border-color:#000}
+  a{color:#000;text-decoration:none}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>Study plan checklist: CAT → GATE ST + DA → ISI MStat</h1>
+  <p class="lede">A week-by-week plan for a working AI engineer building statistics from scratch. Tick boxes as you finish; your progress is saved in this browser. Deadlines mean “problems solved”, not “videos watched”.</p>
+  <div class="facts">
+    <span><b>Hours:</b> ~2.5 weekday · 5–6 Sat · 5–6 Sun (≈25/week)</span>
+    <span><b>Priority when short:</b> GATE ST core → CAT English → DA gaps → ISI rigour</span>
+    <span><b>Cost:</b> every resource is free</span>
+  </div>
+  <div class="timeline" aria-label="Timeline of phases and exams">
+    <div class="tl-track" id="tltrack">
+      <div class="tl-seg p1" style="flex:60">1 · CAT + probability</div>
+      <div class="tl-seg p2" style="flex:41">2 · GATE ST + DA core</div>
+      <div class="tl-seg p3" style="flex:26">3 · PYQs, mocks</div>
+      <div class="tl-seg p4" style="flex:99">4 · ISI MStat</div>
+    </div>
+    <div class="tl-marks" id="tlmarks">
+      <div class="tl-mark" style="left:0%"><b>1 Oct</b>start</div>
+      <div class="tl-mark" style="left:26.1%"><b>29 Nov</b>CAT</div>
+      <div class="tl-mark" style="left:56.2%"><b>6–21 Feb</b>GATE</div>
+      <div class="tl-mark" style="left:74.3%"><b>19 Mar</b>GATE result</div>
+      <div class="tl-mark" style="left:96%"><b>May</b>ISI MStat</div>
+    </div>
+  </div>
+</header>
+
+<aside class="side">
+  <nav id="nav">
+    <a href="#today">Do this week<span class="pct" data-pct="today"></span></a>
+    <a href="#p1">Phase 1<span class="pct" data-pct="p1"></span></a>
+    <a href="#p2">Phase 2<span class="pct" data-pct="p2"></span></a>
+    <a href="#p3">Phase 3<span class="pct" data-pct="p3"></span></a>
+    <a href="#p4">Phase 4<span class="pct" data-pct="p4"></span></a>
+    <a href="#templates">Daily templates</a>
+    <a href="#rules">Rules</a>
+  </nav>
+  <div class="tools">
+    <div class="total" id="total"></div>
+    <button class="btn" onclick="window.print()">Print / save as PDF</button>
+    <button class="btn" id="reset">Clear all ticks</button>
+  </div>
+</aside>
+
+<main>
+
+<!-- ============ TODAY ============ -->
+<section class="phase" id="today">
+  <div class="phase-head"><h2>Do this week (29 Sep – 4 Oct)</h2><span class="prog" data-prog="today"></span></div>
+  <div class="block">
+    <ul class="check" data-phase="today">
+      <li><input type="checkbox" id="t1"><label for="t1">Confirm GATE 2027 registration for <b>both</b> ST (primary) and DA (secondary). Late-fee window closes 5 Oct.</label></li>
+      <li><input type="checkbox" id="t2"><label for="t2">Download the revised GATE 2027 <b>ST</b> and <b>DA</b> syllabus PDFs. Print them; tick topics off against this plan.</label></li>
+      <li><input type="checkbox" id="t3"><label for="t3">Create one error log (notebook or a single Google Sheet): columns = date, exam, topic, question ref, why wrong, correct idea.</label></li>
+      <li><input type="checkbox" id="t4"><label for="t4">Bookmark: NPTEL <i>Probability and Statistics</i> (Somesh Kumar, IIT KGP) · NPTEL <i>Statistical Inference</i> (Somesh Kumar) · probabilitybook.net (Blitzstein &amp; Hwang PDF) · Treil <i>Linear Algebra Done Wrong</i> PDF · Shalabh's IIT Kanpur notes · Grinstead &amp; Snell PDF · Lebl <i>Basic Analysis I</i> PDF.</label></li>
+      <li><input type="checkbox" id="t5"><label for="t5">Collect official CAT PYQs 2017–2025 (all slots) into one folder. Collect GATE ST 2019–2026, GATE DA 2024–2026, GATE MA 2015–2026 papers.</label></li>
+      <li><input type="checkbox" id="t6"><label for="t6">Watch 3Blue1Brown <i>Essence of Linear Algebra</i> (all, ~3 hrs at 1.25×).</label></li>
+      <li><input type="checkbox" id="t7"><label for="t7">Watch 3Blue1Brown <i>Essence of Calculus</i> (all, ~3 hrs).</label></li>
+      <li><input type="checkbox" id="t8"><label for="t8"><span class="tag cat">CAT</span>Sunday 4 Oct: sit official CAT 2025 (any slot) fully timed as a diagnostic. Record section-wise score and VARC accuracy by question type.</label></li>
+      <li><input type="checkbox" id="t9"><label for="t9">Tell your manager which weeks you'll want leave: 1–5 Feb (before GATE) and, if possible, 2–3 days before your ISI date in May.</label></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ PHASE 1 ============ -->
+<section class="phase" id="p1">
+  <div class="phase-head"><h2>Phase 1 — CAT + probability foundations</h2><span class="dates">5 Oct – 29 Nov · 8 weeks</span><span class="prog" data-prog="p1"></span></div>
+  <div class="phase-intro">
+    <p>Two jobs at once: a daily English habit for CAT, and the probability core that GATE ST, GATE DA and ISI all sit on. Your Quant/LRDI only gets one maintenance hour a week.</p>
+    <p>Every week in this phase also includes the standing CAT items: 30 min reading + 40 min VARC PYQs on weekdays, 1 hr Quant/LRDI on Saturday, and the Sunday mock. They're listed once per week so you can tick them.</p>
+  </div>
+
+  <div class="block">
+    <div class="block-head"><h3>Week 1</h3><span class="when">5 – 11 Oct</span><span class="due">due 11 Oct</span></div>
+    <ul class="check" data-phase="p1">
+      <li><input type="checkbox" id="w1a"><label for="w1a"><span class="tag st">ST</span>NPTEL P&amp;S: sample space, axioms, conditional probability, Bayes' theorem, independence. <small>Blitzstein Ch. 1–2: solve all odd-numbered exercises (solutions are in the free PDF).</small></label></li>
+      <li><input type="checkbox" id="w1b"><label for="w1b"><span class="tag st">ST</span>Counting: permutations, combinations, multinomial, inclusion–exclusion, birthday/matching problems. <small>Do the Stat 110 Strategic Practice 1 set.</small></label></li>
+      <li><input type="checkbox" id="w1c"><label for="w1c"><span class="tag cat">CAT</span>Weekday VARC: 2 RCs + 3–4 VA per day from CAT 2017–2018 papers. Log each wrong answer.</label></li>
+      <li><input type="checkbox" id="w1d"><label for="w1d"><span class="tag cat">CAT</span>Sat: 1 LRDI set + 10 QA questions. Sun 11 Oct: full mock (Cracku/2IIM/iQuanta free mock) + 2 hr analysis.</label></li>
+    </ul>
+  </div>
+
+  <div class="block">
+    <div class="block-head"><h3>Week 2</h3><span class="when">12 – 18 Oct</span><span class="due">due 18 Oct</span></div>
+    <ul class="check" data-phase="p1">
+      <li><input type="checkbox" id="w2a"><label for="w2a"><span class="tag st">ST</span>Random variables, PMF, CDF, expectation, variance, functions of a random variable. <small>Blitzstein Ch. 3–4 odd exercises.</small></label></li>
+      <li><input type="checkbox" id="w2b"><label for="w2b"><span class="tag st">ST</span>Discrete families: Bernoulli, Binomial, Geometric, Negative Binomial, Hypergeometric, Poisson. Memorise mean, variance, MGF and the stories that connect them (Poisson as Binomial limit, memorylessness).</label></li>
+      <li><input type="checkbox" id="w2c"><label for="w2c"><span class="tag st">ST</span>Solve all discrete-distribution questions from GATE ST 2019–2022.</label></li>
+      <li><input type="checkbox" id="w2d"><label for="w2d"><span class="tag cat">CAT</span>Weekday VARC from CAT 2019 papers. Focus review on para-jumbles: write the logical chain for each.</label></li>
+      <li><input type="checkbox" id="w2e"><label for="w2e"><span class="tag cat">CAT</span>Sat maintenance. Sun 18 Oct: full mock + analysis.</label></li>
+    </ul>
+  </div>
+
+  <div class="block">
+    <div class="block-head"><h3>Week 3</h3><span class="when">19 – 25 Oct</span><span class="due">due 25 Oct</span></div>
+    <ul class="check" data-phase="p1">
+      <li><input type="checkbox" id="w3a"><label for="w3a"><span class="tag st">ST</span>Continuous random variables: PDF, CDF, Uniform, Exponential, Normal, Gamma, Beta, Cauchy. Standard-normal table use, Gamma–Poisson and Beta–Binomial links. <small>Blitzstein Ch. 5 odd exercises.</small></label></li>
+      <li><input type="checkbox" id="w3b"><label for="w3b"><span class="tag st">ST</span>Moments, MGFs, uniqueness, sums of independent variables via MGF; transformations of one variable (CDF method and Jacobian). <small>Blitzstein Ch. 6 + Ch. 8 §1–2.</small></label></li>
+      <li><input type="checkbox" id="w3c"><label for="w3c"><span class="tag st">ST</span>Solve all continuous-distribution / transformation questions from GATE ST 2019–2022 and GATE MA 2020–2024.</label></li>
+      <li><input type="checkbox" id="w3d"><label for="w3d"><span class="tag cat">CAT</span>Weekday VARC from CAT 2020 papers. Sat maintenance. Sun 25 Oct: full mock + analysis.</label></li>
+    </ul>
+  </div>
+
+  <div class="block">
+    <div class="block-head"><h3>Week 4</h3><span class="when">26 Oct – 1 Nov</span><span class="due">due 1 Nov</span></div>
+    <ul class="check" data-phase="p1">
+      <li><input type="checkbox" id="w4a"><label for="w4a"><span class="tag st">ST</span>Joint, marginal and conditional distributions; independence; covariance, correlation; conditional expectation and variance (law of total expectation / Eve's law). <small>Blitzstein Ch. 7 and Ch. 9 odd exercises.</small></label></li>
+      <li><input type="checkbox" id="w4b"><label for="w4b"><span class="tag st">ST</span>Bivariate normal properties; transformations of two variables with Jacobian (sum, ratio, product); order statistics: distribution of min, max, k-th, joint of (min,max). <small>Blitzstein Ch. 8 §3–6.</small></label></li>
+      <li><input type="checkbox" id="w4c"><label for="w4c"><span class="tag st">ST</span>GATE ST 2023–2024 joint-distribution and order-statistic questions.</label></li>
+      <li><input type="checkbox" id="w4d"><label for="w4d"><span class="tag cat">CAT</span>Weekday VARC from CAT 2021 papers. Sat maintenance. Sun 1 Nov: mock (use official CAT 2023 as the mock) + analysis.</label></li>
+    </ul>
+  </div>
+
+  <div class="block">
+    <div class="block-head"><h3>Week 5</h3><span class="when">2 – 8 Nov</span><span class="due">Probability done · 8 Nov</span></div>
+    <ul class="check" data-phase="p1">
+      <li><input type="checkbox" id="w5a"><label for="w5a"><span class="tag st">ST</span>Inequalities (Markov, Chebyshev, Jensen, Cauchy–Schwarz); convergence in probability / distribution / almost sure; WLLN, SLLN, CLT, Slutsky, delta method. <small>Blitzstein Ch. 10 odd exercises.</small></label></li>
+      <li><input type="checkbox" id="w5b"><label for="w5b"><span class="tag st">ST</span>Checkpoint: solve <b>every</b> probability question from GATE ST 2019–2026 in one sitting per year. Target ≥ 70% correct; below that, spend Sunday re-doing the weakest chapter.</label></li>
+      <li><input type="checkbox" id="w5c"><label for="w5c"><span class="tag st">ST</span>Write formula sheet page 1: all distributions with support, mean, variance, MGF, and key relationships.</label></li>
+      <li><input type="checkbox" id="w5d"><label for="w5d"><span class="tag cat">CAT</span>Weekday VARC from CAT 2022 papers. From this week: add one <b>VARC sectional</b> on Wednesday evening (replaces that night's core slot).</label></li>
+      <li><input type="checkbox" id="w5e"><label for="w5e"><span class="tag cat">CAT</span>Sat maintenance. Sun 8 Nov: full mock + analysis.</label></li>
+    </ul>
+  </div>
+
+  <div class="block">
+    <div class="block-head"><h3>Week 6</h3><span class="when">9 – 15 Nov</span><span class="due">due 15 Nov</span></div>
+    <ul class="check" data-phase="p1">
+      <li><input type="checkbox" id="w6a"><label for="w6a"><span class="tag st">ST</span>Sampling distributions: chi-square, t, F — definitions, derivations from normals, independence of sample mean and variance, distribution of (n−1)S²/σ². <small>NPTEL P&amp;S sampling-distribution lectures.</small></label></li>
+      <li><input type="checkbox" id="w6b"><label for="w6b"><span class="tag st">ST</span>Linear algebra (Sat): Strang 18.06 lectures on elimination, rank, the four fundamental subspaces, solving Ax=b, projections and least squares. <small>Treil Ch. 1–2 selected exercises.</small></label></li>
+      <li><input type="checkbox" id="w6c"><label for="w6c"><span class="tag cat">CAT</span>Weekday VARC from CAT 2023 papers + Wed sectional. Sat maintenance. Sun 15 Nov: full mock + analysis.</label></li>
+    </ul>
+  </div>
+
+  <div class="block">
+    <div class="block-head"><h3>Week 7</h3><span class="when">16 – 22 Nov</span><span class="due">due 22 Nov</span></div>
+    <ul class="check" data-phase="p1">
+      <li><input type="checkbox" id="w7a"><label for="w7a"><span class="tag st">ST</span>Estimation, first pass: method of moments and MLE for Bernoulli, Binomial, Poisson, Exponential, Normal (μ,σ²), Uniform(0,θ); unbiasedness, bias, MSE, consistency. <small>NPTEL P&amp;S estimation lectures.</small></label></li>
+      <li><input type="checkbox" id="w7b"><label for="w7b"><span class="tag st">ST</span>Linear algebra (Sat): eigenvalues/eigenvectors, diagonalisation, symmetric matrices and spectral theorem, positive definite matrices, quadratic forms, idempotent matrices (needed for ANOVA later). <small>Treil Ch. 4–5 selected exercises.</small></label></li>
+      <li><input type="checkbox" id="w7c"><label for="w7c"><span class="tag cat">CAT</span>Weekday VARC from CAT 2024 papers + Wed sectional. Sat maintenance. Sun 22 Nov: official CAT 2024 as a mock + analysis. Fix slot timing from here on.</label></li>
+    </ul>
+  </div>
+
+  <div class="block">
+    <div class="block-head"><h3>Week 8 — taper</h3><span class="when">23 – 29 Nov</span><span class="due exam">CAT · Sun 29 Nov</span></div>
+    <ul class="check" data-phase="p1">
+      <li><input type="checkbox" id="w8a"><label for="w8a"><span class="tag cat">CAT</span>No new material. Each evening: re-read your VARC error log, 1 RC, 1 LRDI set, 10 QA questions. Nothing after 9 pm.</label></li>
+      <li><input type="checkbox" id="w8b"><label for="w8b"><span class="tag cat">CAT</span>Wed 25 Nov: last light sectional (VARC only). Thu–Sat: no mocks. Sleep on your exam-slot schedule.</label></li>
+      <li><input type="checkbox" id="w8c"><label for="w8c"><span class="tag st">ST</span>Light only: 30 min/day redoing probability error-log items. No stats.</label></li>
+      <li><input type="checkbox" id="w8d"><label for="w8d"><span class="tag cat">CAT</span>Admit card printed, ID ready, centre route checked.</label></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ PHASE 2 ============ -->
+<section class="phase" id="p2">
+  <div class="phase-head"><h2>Phase 2 — GATE ST core + DA gaps</h2><span class="dates">30 Nov – 10 Jan · 6 weeks</span><span class="prog" data-prog="p2"></span></div>
+  <div class="phase-intro">
+    <p>CAT is done, so weekday evenings are fully ST (~2 hrs). The morning 30-min slot becomes a PYQ warm-up in a finished topic — this is your spaced revision. Saturdays carry the DA items and the calculus-by-PYQ hour.</p>
+    <p>Rest on 30 Nov and 1 Dec. Start Wednesday 2 Dec.</p>
+  </div>
+
+  <div class="block">
+    <div class="block-head"><h3>Week 9</h3><span class="when">2 – 6 Dec</span><span class="due">due 6 Dec</span></div>
+    <ul class="check" data-phase="p2">
+      <li><input type="checkbox" id="w9a"><label for="w9a"><span class="tag st">ST</span>NPTEL Statistical Inference: sufficiency and the factorisation theorem, minimal sufficiency, exponential families, completeness, ancillarity, Basu's theorem.</label></li>
+      <li><input type="checkbox" id="w9b"><label for="w9b"><span class="tag st">ST</span>Rao–Blackwell, Lehmann–Scheffé, UMVUE. Derive UMVUEs for Bernoulli p, Poisson λ, Normal μ and σ², Uniform(0,θ), Exponential mean.</label></li>
+      <li><input type="checkbox" id="w9c"><label for="w9c"><span class="tag st">ST</span>Sat: calculus by PYQ — limits, sequences and series (convergence tests) from GATE ST/MA; look up gaps in Paul's Online Notes.</label></li>
+    </ul>
+  </div>
+
+  <div class="block">
+    <div class="block-head"><h3>Week 10</h3><span class="when">7 – 13 Dec</span><span class="due">Estimation done · 13 Dec</span></div>
+    <ul class="check" data-phase="p2">
+      <li><input type="checkbox" id="w10a"><label for="w10a"><span class="tag st">ST</span>Fisher information, Cramér–Rao lower bound, efficiency; consistency and asymptotic normality of MLE; invariance property; Bayes estimators with conjugate priors (Beta–Binomial, Gamma–Poisson, Normal–Normal).</label></li>
+      <li><input type="checkbox" id="w10b"><label for="w10b"><span class="tag st">ST</span>Solve every estimation question from GATE ST 2019–2026 and GATE MA 2018–2026. Log misses.</label></li>
+      <li><input type="checkbox" id="w10c"><label for="w10c"><span class="tag st">ST</span>Formula sheet page 2: estimator properties, Fisher information for standard families, UMVUE table.</label></li>
+      <li><input type="checkbox" id="w10d"><label for="w10d"><span class="tag st">ST</span>Sat: calculus by PYQ — continuity, differentiability, mean value theorem, maxima/minima, Taylor.</label></li>
+    </ul>
+  </div>
+
+  <div class="block">
+    <div class="block-head"><h3>Week 11</h3><span class="when">14 – 20 Dec</span><span class="due">due 20 Dec</span></div>
+    <ul class="check" data-phase="p2">
+      <li><input type="checkbox" id="w11a"><label for="w11a"><span class="tag st">ST</span>Testing: null/alternative, Type I/II error, size, power, p-value; Neyman–Pearson lemma; most powerful tests for simple hypotheses; UMP tests via monotone likelihood ratio; one-sided tests for exponential families.</label></li>
+      <li><input type="checkbox" id="w11b"><label for="w11b"><span class="tag st">ST</span>Derive NP tests and power functions for: Normal mean (σ known), Exponential rate, Poisson λ, Bernoulli p, Uniform(0,θ).</label></li>
+      <li><input type="checkbox" id="w11c"><label for="w11c"><span class="tag da">DA</span>Sat: Gate Smashers DBMS — ER model, keys, relational algebra, SQL (joins, nested queries, aggregation). Solve the DBMS questions from GATE DA 2024–2026 and GATE CS 2022–2026.</label></li>
+    </ul>
+  </div>
+
+  <div class="block">
+    <div class="block-head"><h3>Week 12</h3><span class="when">21 – 27 Dec</span><span class="due">Testing + DBMS done · 27 Dec</span></div>
+    <ul class="check" data-phase="p2">
+      <li><input type="checkbox" id="w12a"><label for="w12a"><span class="tag st">ST</span>Likelihood ratio tests and their asymptotic chi-square distribution; one- and two-sample tests for Normal mean and variance (z, t, paired t, F); chi-square tests for goodness of fit and independence.</label></li>
+      <li><input type="checkbox" id="w12b"><label for="w12b"><span class="tag st">ST</span>Confidence intervals by the pivotal method; duality with tests; intervals for Normal μ, σ², difference of means, Binomial p (large sample).</label></li>
+      <li><input type="checkbox" id="w12c"><label for="w12c"><span class="tag st">ST</span>Solve every testing / CI question from GATE ST 2019–2026 and GATE MA 2018–2026. Formula sheet page 3: test statistics and rejection regions.</label></li>
+      <li><input type="checkbox" id="w12d"><label for="w12d"><span class="tag da">DA</span>Sat: DBMS — functional dependencies, normalisation (1NF–BCNF), indexing and B+ trees, transactions/ACID basics; 1-hr data warehousing overview (OLAP vs OLTP, star and snowflake schemas, ETL).</label></li>
+      <li><input type="checkbox" id="w12e"><label for="w12e"><span class="tag da">DA</span>Tick the DA syllabus line by line. For any AI-section item you don't recognise (uninformed/informed search, logic, Bayesian networks, MDPs), watch the single matching Berkeley CS188 lecture.</label></li>
+    </ul>
+  </div>
+
+  <div class="block">
+    <div class="block-head"><h3>Week 13</h3><span class="when">28 Dec – 3 Jan</span><span class="due">Regression + ANOVA + DA PYQs · 3 Jan</span></div>
+    <ul class="check" data-phase="p2">
+      <li><input type="checkbox" id="w13a"><label for="w13a"><span class="tag st">ST</span>Shalabh, Regression Analysis Ch. 1–3: simple linear regression, least squares, Gauss–Markov, distribution of β̂, tests and CIs for slope, R², prediction intervals, residual analysis.</label></li>
+      <li><input type="checkbox" id="w13b"><label for="w13b"><span class="tag st">ST</span>Shalabh Ch. 4: multiple regression in matrix form, hat matrix, properties of residuals, partial F-test, multicollinearity basics.</label></li>
+      <li><input type="checkbox" id="w13c"><label for="w13c"><span class="tag st">ST</span>Shalabh, ANOVA / Design notes: one-way and two-way ANOVA (sums of squares, F tests, expected mean squares), CRD, RBD, LSD, basic principles (randomisation, replication, local control).</label></li>
+      <li><input type="checkbox" id="w13d"><label for="w13d"><span class="tag st">ST</span>Solve all regression / ANOVA / design questions from GATE ST 2019–2026.</label></li>
+      <li><input type="checkbox" id="w13e"><label for="w13e"><span class="tag da">DA</span>Sit GATE DA 2024, 2025, 2026 fully timed (Sat, Sun, and one weekday evening). Expect ML/DSA/AI to be easy; log every miss — most will be probability, stats or LA.</label></li>
+    </ul>
+  </div>
+
+  <div class="block">
+    <div class="block-head"><h3>Week 14</h3><span class="when">4 – 10 Jan</span><span class="due">Phase 2 done · 10 Jan</span></div>
+    <ul class="check" data-phase="p2">
+      <li><input type="checkbox" id="w14a"><label for="w14a"><span class="tag st">ST</span>Grinstead &amp; Snell Ch. 11: Markov chains — transition matrices, Chapman–Kolmogorov, classification of states (recurrent, transient, periodic), absorbing chains, stationary distributions and limiting behaviour. Do the chapter exercises.</label></li>
+      <li><input type="checkbox" id="w14b"><label for="w14b"><span class="tag st">ST</span>Poisson process: definition, inter-arrival times, superposition, thinning, conditional uniformity. <small>One NPTEL Stochastic Processes lecture (Dharmaraja) is enough.</small></label></li>
+      <li><input type="checkbox" id="w14c"><label for="w14c"><span class="tag st">ST</span>Non-parametric tests via PYQs: sign, Wilcoxon signed-rank, Mann–Whitney/Wilcoxon rank-sum, Kolmogorov–Smirnov, runs test. Watch the matching NPTEL lecture only where a PYQ topic is unfamiliar.</label></li>
+      <li><input type="checkbox" id="w14d"><label for="w14d"><span class="tag st">ST</span>Multivariate via PYQs: multivariate normal (marginals, conditionals, linear combinations), Wishart basics, Hotelling's T² basics, PCA (you know this from ML).</label></li>
+      <li><input type="checkbox" id="w14e"><label for="w14e"><span class="tag st">ST</span>Solve all stochastic-process, non-parametric and multivariate questions from GATE ST 2019–2026. Formula sheet page 4.</label></li>
+      <li><input type="checkbox" id="w14f"><label for="w14f"><span class="tag st">ST</span>Sat: calculus by PYQ — Riemann integrability, improper integrals, multivariable partial derivatives, double integrals, Lagrange multipliers.</label></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ PHASE 3 ============ -->
+<section class="phase" id="p3">
+  <div class="phase-head"><h2>Phase 3 — PYQs, mocks, revision</h2><span class="dates">11 Jan – 5 Feb · 3.5 weeks</span><span class="prog" data-prog="p3"></span></div>
+  <div class="phase-intro">
+    <p>No new topics. Every session is a timed paper or its analysis. Take leave for 1–5 Feb if you can, and for any weekday between your two GATE papers.</p>
+  </div>
+
+  <div class="block">
+    <div class="block-head"><h3>Week 15</h3><span class="when">11 – 17 Jan</span><span class="due">due 17 Jan</span></div>
+    <ul class="check" data-phase="p3">
+      <li><input type="checkbox" id="w15a"><label for="w15a"><span class="tag st">ST</span>GATE ST 2019 — full paper, timed 3 hrs (Sat). Analyse the same day.</label></li>
+      <li><input type="checkbox" id="w15b"><label for="w15b"><span class="tag st">ST</span>GATE ST 2020 — full paper, timed (Sun).</label></li>
+      <li><input type="checkbox" id="w15c"><label for="w15c"><span class="tag st">ST</span>GATE ST 2021 and 2022 — split each across two weekday evenings (90 min halves).</label></li>
+      <li><input type="checkbox" id="w15d"><label for="w15d"><span class="tag st">ST</span>Morning slots: GATE MA probability/stats/LA questions 2015–2019.</label></li>
+    </ul>
+  </div>
+
+  <div class="block">
+    <div class="block-head"><h3>Week 16</h3><span class="when">18 – 24 Jan</span><span class="due">Formula sheets final · 24 Jan</span></div>
+    <ul class="check" data-phase="p3">
+      <li><input type="checkbox" id="w16a"><label for="w16a"><span class="tag st">ST</span>GATE ST 2023 (Sat) and 2024 (Sun) — full, timed, analysed.</label></li>
+      <li><input type="checkbox" id="w16b"><label for="w16b"><span class="tag st">ST</span>GATE ST 2025 and 2026 — split across weekday evenings.</label></li>
+      <li><input type="checkbox" id="w16c"><label for="w16c"><span class="tag st">ST</span>Finalise formula sheets: distributions · estimation · testing/CIs · regression &amp; ANOVA · Markov chains &amp; Poisson process · non-parametric test statistics. Max 6 pages total.</label></li>
+      <li><input type="checkbox" id="w16d"><label for="w16d"><span class="tag da">DA</span>DA cheat sheet: SQL syntax, normal forms, B+ tree facts, complexity table, ML formulas you'd otherwise re-derive (bias–variance, logistic loss, SVM margin, k-means objective).</label></li>
+      <li><input type="checkbox" id="w16e"><label for="w16e"><span class="tag st">ST</span>Morning slots: GATE MA 2020–2026 stats/LA questions.</label></li>
+    </ul>
+  </div>
+
+  <div class="block">
+    <div class="block-head"><h3>Week 17</h3><span class="when">25 – 31 Jan</span><span class="due">due 31 Jan</span></div>
+    <ul class="check" data-phase="p3">
+      <li><input type="checkbox" id="w17a"><label for="w17a"><span class="tag st">ST</span>Sat: full ST mock on the <b>official GATE mock interface</b> (get used to the virtual calculator and the NAT input).</label></li>
+      <li><input type="checkbox" id="w17b"><label for="w17b"><span class="tag da">DA</span>Sun: full DA mock on the official interface.</label></li>
+      <li><input type="checkbox" id="w17c"><label for="w17c">General Aptitude sections from any 5 old GATE papers (weekday evenings, 15 min each).</label></li>
+      <li><input type="checkbox" id="w17d"><label for="w17d"><span class="tag st">ST</span>Re-solve every item in the error log from Phase 2 onward. Anything still wrong twice goes on the last-day sheet.</label></li>
+    </ul>
+  </div>
+
+  <div class="block">
+    <div class="block-head"><h3>Exam week</h3><span class="when">1 Feb – your paper dates</span><span class="due exam">GATE · 6–21 Feb</span></div>
+    <ul class="check" data-phase="p3">
+      <li><input type="checkbox" id="w18a"><label for="w18a">On leave if possible. One light half-paper per day, formula sheets, last-day sheet. Stop by 8 pm.</label></li>
+      <li><input type="checkbox" id="w18b"><label for="w18b">Two days before each paper: nothing new. Sleep on the slot timing. Admit card, ID, centre route ready.</label></li>
+      <li><input type="checkbox" id="w18c"><label for="w18c">Between your two papers: one full mock of the paper still to come, then formula sheets only.</label></li>
+      <li><input type="checkbox" id="w18d"><label for="w18d">After the second paper: three full days off. No study.</label></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ PHASE 4 ============ -->
+<section class="phase" id="p4">
+  <div class="phase-head"><h2>Phase 4 — ISI MStat</h2><span class="dates">25 Feb – early May · 10 weeks</span><span class="prog" data-prog="p4"></span></div>
+  <div class="phase-intro">
+    <p>ISI tests the same content at greater depth and asks you to <b>write it</b>: PSA is objective (maths + stats), PSB is subjective (proofs and derivations). What's new is rigour, proof-writing and harder problems, kept deliberately narrow. Same weekly hours.</p>
+    <p>If ST went badly and you feel the base isn't there, still do this phase: it is the best possible preparation for GATE ST 2028 as well.</p>
+  </div>
+
+  <div class="block">
+    <div class="block-head"><h3>Week A</h3><span class="when">25 Feb – 1 Mar</span><span class="due">due 1 Mar</span></div>
+    <ul class="check" data-phase="p4">
+      <li><input type="checkbox" id="a1"><label for="a1">Download all ISI MStat PSA and PSB past papers (official site: papers and sample questions; community solutions exist for most years). Also B.Stat/B.Math objective papers.</label></li>
+      <li><input type="checkbox" id="a2"><label for="a2">Diagnostic: one PSA untimed, one PSB with full written answers. Note which questions you couldn't even start — that's the reading list.</label></li>
+      <li><input type="checkbox" id="a3"><label for="a3">Lebl <i>Basic Analysis I</i> Ch. 1: real numbers, sup/inf, completeness, Archimedean property. Write out 10 exercises.</label></li>
+    </ul>
+  </div>
+
+  <div class="block">
+    <div class="block-head"><h3>Week B</h3><span class="when">2 – 8 Mar</span><span class="due">due 8 Mar</span></div>
+    <ul class="check" data-phase="p4">
+      <li><input type="checkbox" id="b1"><label for="b1">Lebl Ch. 2: sequences, monotone convergence, Bolzano–Weierstrass, Cauchy sequences, series and convergence tests, limsup/liminf. Written exercises.</label></li>
+      <li><input type="checkbox" id="b2"><label for="b2">Sun: ISI B.Stat objective paper (any year) — combinatorics, inequalities, functions. 2 hrs.</label></li>
+    </ul>
+  </div>
+
+  <div class="block">
+    <div class="block-head"><h3>Week C</h3><span class="when">9 – 15 Mar</span><span class="due">due 15 Mar</span></div>
+    <ul class="check" data-phase="p4">
+      <li><input type="checkbox" id="c1"><label for="c1">Lebl Ch. 3: limits of functions, continuity, intermediate value theorem, extreme value theorem, uniform continuity. Written exercises.</label></li>
+      <li><input type="checkbox" id="c2"><label for="c2">Treil Ch. 1–2: vector spaces, bases, dimension, linear maps, rank–nullity — with proofs written in full.</label></li>
+    </ul>
+  </div>
+
+  <div class="block">
+    <div class="block-head"><h3>Week D</h3><span class="when">16 – 22 Mar</span><span class="due">Analysis done · 22 Mar</span></div>
+    <ul class="check" data-phase="p4">
+      <li><input type="checkbox" id="d1"><label for="d1">Lebl Ch. 4: derivative, mean value theorem, Taylor's theorem, L'Hôpital. Written exercises. (Stop analysis here — Ch. 5+ only if PYQs demand it.)</label></li>
+      <li><input type="checkbox" id="d2"><label for="d2">Treil Ch. 3–4: determinants, eigenvalues, diagonalisation, characteristic polynomial, Cayley–Hamilton — proofs written.</label></li>
+      <li><input type="checkbox" id="d3"><label for="d3">Fri 19 Mar: GATE result. If the score is competitive, shortlist IIT/IISc/ISI programmes accepting GATE ST/DA and note their application windows (no study time needed).</label></li>
+    </ul>
+  </div>
+
+  <div class="block">
+    <div class="block-head"><h3>Week E</h3><span class="when">23 – 29 Mar</span><span class="due">due 29 Mar</span></div>
+    <ul class="check" data-phase="p4">
+      <li><input type="checkbox" id="e1"><label for="e1">Treil Ch. 5: inner product spaces, orthogonal projections, Gram–Schmidt, symmetric and positive-definite matrices, spectral theorem — proofs written. <small>Linear algebra done.</small></label></li>
+      <li><input type="checkbox" id="e2"><label for="e2">Blitzstein: the hardest 15–20% of exercises in Ch. 3–5 (conditioning tricks, indicator method, symmetry arguments). Full written solutions.</label></li>
+    </ul>
+  </div>
+
+  <div class="block">
+    <div class="block-head"><h3>Week F</h3><span class="when">30 Mar – 5 Apr</span><span class="due">Probability done · 5 Apr</span></div>
+    <ul class="check" data-phase="p4">
+      <li><input type="checkbox" id="f1"><label for="f1">Blitzstein: hardest exercises in Ch. 7–9 (joint distributions, Jacobian transformations, order statistics, conditional expectation).</label></li>
+      <li><input type="checkbox" id="f2"><label for="f2">Sat: ISI MStat paper 1 — PSA timed, then PSB written in full under time. Sun: self-grade harshly against solutions; rewrite any proof you'd lose marks on.</label></li>
+    </ul>
+  </div>
+
+  <div class="block">
+    <div class="block-head"><h3>Week G</h3><span class="when">6 – 12 Apr</span><span class="due">due 12 Apr</span></div>
+    <ul class="check" data-phase="p4">
+      <li><input type="checkbox" id="g1"><label for="g1">Rewatch NPTEL Statistical Inference estimation lectures at 1.5× and <b>write every derivation</b>: factorisation theorem use, Rao–Blackwell, Lehmann–Scheffé, CRLB attainment, MLE for Uniform/Laplace/shifted Exponential. MIT 18.650 (Rigollet) as a second explanation where stuck.</label></li>
+      <li><input type="checkbox" id="g2"><label for="g2">Weekend: ISI MStat papers 2 and 3 (one per day, PSB in full). Grade and rewrite.</label></li>
+    </ul>
+  </div>
+
+  <div class="block">
+    <div class="block-head"><h3>Week H</h3><span class="when">13 – 19 Apr</span><span class="due">Inference derivations done · 19 Apr</span></div>
+    <ul class="check" data-phase="p4">
+      <li><input type="checkbox" id="h1"><label for="h1">Rewatch testing lectures and write the derivations: NP lemma proof, UMP via MLR, LRT for Normal mean/variance, chi-square asymptotics, pivotal CIs.</label></li>
+      <li><input type="checkbox" id="h2"><label for="h2">Weekend: ISI MStat papers 4 and 5.</label></li>
+      <li><input type="checkbox" id="h3"><label for="h3">Weekday morning slots: one B.Stat objective section per day for speed.</label></li>
+    </ul>
+  </div>
+
+  <div class="block">
+    <div class="block-head"><h3>Week I</h3><span class="when">20 – 26 Apr</span><span class="due">due 26 Apr</span></div>
+    <ul class="check" data-phase="p4">
+      <li><input type="checkbox" id="i1"><label for="i1">ISI MStat papers 6, 7 (weekend) and 8 (split across weekday evenings, PSB only).</label></li>
+      <li><input type="checkbox" id="i2"><label for="i2">Build a "PSB patterns" page: the 10–12 question archetypes that recur (UMVUE derivation, MLE with boundary, order-statistic distribution, Markov chain stationary, regression proof, inequality proof, LA rank argument) and your template approach for each.</label></li>
+    </ul>
+  </div>
+
+  <div class="block">
+    <div class="block-head"><h3>Week J</h3><span class="when">27 Apr – 3 May</span><span class="due">due 3 May</span></div>
+    <ul class="check" data-phase="p4">
+      <li><input type="checkbox" id="j1"><label for="j1">ISI MStat papers 9, 10 (weekend) and 11 (weekdays).</label></li>
+      <li><input type="checkbox" id="j2"><label for="j2">Re-solve every ISI error-log item. Rewrite the PSB answers you graded lowest.</label></li>
+    </ul>
+  </div>
+
+  <div class="block">
+    <div class="block-head"><h3>Final week</h3><span class="when">4 May – exam</span><span class="due exam">ISI MStat · May</span></div>
+    <ul class="check" data-phase="p4">
+      <li><input type="checkbox" id="k1"><label for="k1">One more timed PSA early in the week; otherwise only formula sheets, PSB patterns page and error log.</label></li>
+      <li><input type="checkbox" id="k2"><label for="k2">Two days before: nothing new. Admit card, ID, centre route ready. Sleep.</label></li>
+      <li><input type="checkbox" id="k3"><label for="k3">After the exam: if shortlisted, the interview is on the same material plus your background — prepare to explain your AI work in statistical terms.</label></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ TEMPLATES ============ -->
+<section class="phase" id="templates">
+  <div class="phase-head"><h2>Daily templates</h2></div>
+  <div class="block">
+    <div class="block-head"><h3>Weekday (~2.5 hrs)</h3></div>
+    <div class="tbl"><table>
+      <tr><th>Slot</th><th>Phase 1 (to 29 Nov)</th><th>Phase 2–4</th></tr>
+      <tr><td>Morning · 30 min</td><td>Read one dense essay or op-ed (Aeon, The Hindu / Indian Express editorials, Orwell &amp; Russell essays on Gutenberg). Read for the argument.</td><td>PYQ warm-up: 5–8 questions from a topic you finished earlier (spaced revision).</td></tr>
+      <tr><td>Evening 1 · 40 min</td><td>2 RCs + 3–4 VA questions from official CAT PYQs. One-line review of every wrong answer.</td><td>Folded into core study.</td></tr>
+      <tr><td>Evening 2 · 70–120 min</td><td>Core study: the week's ST item. One subject per evening, never split.</td><td>Core study: ~2 hrs on the week's item.</td></tr>
+    </table></div>
+  </div>
+  <div class="block">
+    <div class="block-head"><h3>Weekend (5–6 hrs each day)</h3></div>
+    <div class="tbl"><table>
+      <tr><th>Day</th><th>Phase 1</th><th>Phase 2</th><th>Phase 3–4</th></tr>
+      <tr><td>Saturday</td><td>4 hrs core · 1 hr Quant/LRDI PYQs · 30 min VARC · LA lectures in weeks 6–7</td><td>3 hrs ST · 1–2 hrs DA item · 1 hr calculus by PYQ</td><td>Full timed paper (morning) + analysis (afternoon)</td></tr>
+      <tr><td>Sunday</td><td>Full CAT mock + 2 hrs analysis · 1–2 hrs core · rest</td><td>4–5 hrs ST · 30 min error log</td><td>Second paper or derivation writing · error log · half day off</td></tr>
+      <tr><td>Every 2nd Sunday</td><td colspan="3">Re-solve everything in the error log from the last two weeks (1 hr, before anything else).</td></tr>
+    </table></div>
+  </div>
+</section>
+
+<!-- ============ RULES ============ -->
+<section class="phase rules" id="rules">
+  <div class="phase-head"><h2>Rules</h2></div>
+  <div class="block">
+    <ol>
+      <li><b>A resource is done when its problems are done.</b> Watch at 1.5×, pause, solve, then move on.</li>
+      <li><b>One error log from day one.</b> Topic, why wrong, correct idea. It is your January and April revision.</li>
+      <li><b>One subject per weeknight.</b> Switch subjects by day, not by hour.</li>
+      <li><b>Don't buy a test series.</b> Official PYQs (ST, DA, MA, CS, CAT) plus a few free CAT mocks are enough.</li>
+      <li><b>If a deadline slips by more than 4 days,</b> cut breadth, not the spine. Drop in this order: ISI real-analysis depth → ST multivariate → ST non-parametric → DA AI/warehousing extras → CAT weekday VA drills. Never cut probability, estimation, testing or linear algebra.</li>
+      <li><b>Mid-December checkpoint:</b> if Week 10 (estimation) isn't done by 20 Dec, make ISI a 2028 target and put its hours into ST. Nothing is lost — Phase 4 material is the same.</li>
+      <li><b>Sleep and one half-day fully off every week.</b> Part-time plans fail through burnout, not through lack of hours.</li>
+    </ol>
+  </div>
+</section>
+
+</main>
+
+<footer>Dates: CAT 2026 on 29 Nov 2026; GATE 2027 on 6, 7, 13, 14, 20, 21 Feb 2027 with results on 19 Mar 2027; ISI MStat 2027 expected in May — confirm your exact dates on the official sites. Progress ticks are stored only in this browser.</footer>
+</div>
+
+<script>
+(function(){
+  var KEY='studyplan-ticks-v1';
+  var boxes=Array.prototype.slice.call(document.querySelectorAll('ul.check input[type=checkbox]'));
+  var state={};
+  try{ state=JSON.parse(localStorage.getItem(KEY)||'{}')||{}; }catch(e){ state={}; }
+  boxes.forEach(function(b){ if(state[b.id]) b.checked=true; });
+
+  function save(){ try{ localStorage.setItem(KEY,JSON.stringify(state)); }catch(e){} }
+  function update(){
+    var phases={};
+    boxes.forEach(function(b){
+      var p=b.closest('ul.check').getAttribute('data-phase');
+      phases[p]=phases[p]||{d:0,t:0}; phases[p].t++; if(b.checked) phases[p].d++;
+    });
+    var all={d:0,t:0};
+    Object.keys(phases).forEach(function(p){
+      all.d+=phases[p].d; all.t+=phases[p].t;
+      var el=document.querySelector('[data-prog="'+p+'"]'); if(el) el.textContent=phases[p].d+' / '+phases[p].t+' done';
+      var pc=document.querySelector('[data-pct="'+p+'"]'); if(pc) pc.textContent=Math.round(100*phases[p].d/phases[p].t)+'%';
+    });
+    var tot=document.getElementById('total'); if(tot) tot.textContent=all.d+' of '+all.t+' items done';
+  }
+  boxes.forEach(function(b){ b.addEventListener('change',function(){ if(b.checked) state[b.id]=1; else delete state[b.id]; save(); update(); }); });
+  document.getElementById('reset').addEventListener('click',function(){
+    if(!confirm('Clear all ticks?')) return;
+    state={}; save(); boxes.forEach(function(b){b.checked=false;}); update();
+  });
+  update();
+
+  // today marker on timeline (1 Oct 2026 → 15 May 2027)
+  try{
+    var start=new Date(2026,9,1), end=new Date(2027,4,15), now=new Date();
+    var f=(now-start)/(end-start);
+    if(f>=0&&f<=1){
+      var m=document.createElement('div'); m.className='tl-today'; m.style.left=(f*100)+'%';
+      m.innerHTML='<span>today</span>'; document.getElementById('tlmarks').appendChild(m);
+    }
+  }catch(e){}
+
+  // active nav on scroll
+  var links=Array.prototype.slice.call(document.querySelectorAll('#nav a'));
+  var secs=links.map(function(a){return document.querySelector(a.getAttribute('href'));});
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){ links.forEach(function(a){a.classList.toggle('active',a.getAttribute('href')==='#'+e.target.id);}); } });
+    },{rootMargin:'-20% 0px -70% 0px'});
+    secs.forEach(function(s){ if(s) io.observe(s); });
+  }
+})();
+</script>
+</body>
+</html>
