@@ -1,0 +1,470 @@
+{
+  "version": 1,
+  "meta": {
+    "createdAt": "2026-09-18T15:02:11.000Z",
+    "updatedAt": "2026-09-30T08:30:00.000Z",
+    "demo": true,
+    "note": "Fictional example for the Waypoint Claude workspace. Alex Rivera and all companies and contacts are made up."
+  },
+  "settings": {
+    "region": "us",
+    "currency": "USD",
+    "weeklyGoals": { "applications": 10, "outreach": 15, "followups": 5, "learningHours": 3 },
+    "autonomy": {
+      "research": "auto",
+      "drafts": "auto",
+      "saveItems": "ask",
+      "outreach": "ask",
+      "applications": "ask",
+      "followups": "ask"
+    },
+    "claude": { "model": "claude-opus-5-5", "effort": "medium", "webSearch": true }
+  },
+  "profile": {
+    "name": "Alex Rivera",
+    "headline": "Senior Data Analyst | SQL, dbt, Power BI | Turning messy data into decisions",
+    "email": "alex.rivera@example.com",
+    "phone": "+1 555 010 0199",
+    "location": "Austin, TX",
+    "linkedin": "",
+    "github": "",
+    "website": "",
+    "currentTitle": "Senior Data Analyst",
+    "currentCompany": "Fabrikam Insurance",
+    "yearsExperience": 6,
+    "targetTitles": ["Analytics Engineer", "Senior Data Analyst"],
+    "targetLocations": ["Austin, TX", "Remote (US)"],
+    "workModes": ["remote", "hybrid"],
+    "salary": { "current": 105000, "expected": 130000, "minimum": 118000, "currency": "USD" },
+    "noticePeriod": "2 weeks",
+    "workAuth": "US citizen",
+    "relocate": false,
+    "summary": "Data analyst with 6 years in insurance and retail analytics. I build reliable SQL and dbt pipelines and the dashboards teams actually use, and I like translating ambiguous business questions into clear metrics.",
+    "skills": ["SQL", "dbt", "Python", "Power BI", "Snowflake", "Airflow", "Git", "A/B testing", "Data modeling", "Stakeholder management"],
+    "experience": [
+      {
+        "id": "exp_mugdnerheqv",
+        "title": "Senior Data Analyst",
+        "company": "Fabrikam Insurance",
+        "location": "Austin, TX",
+        "start": "2022-03",
+        "end": "",
+        "current": true,
+        "bullets": [
+          "Rebuilt the claims reporting pipeline in dbt on Snowflake, cutting daily refresh time from 5 hours to 40 minutes.",
+          "Designed a Power BI claims-triage dashboard used by 120 adjusters across 4 regions.",
+          "Partnered with actuarial and operations leads to define 15 shared KPIs, ending conflicting weekly reports.",
+          "Mentored two junior analysts on SQL style, testing and code review."
+        ]
+      },
+      {
+        "id": "exp_mugt014omvb",
+        "title": "Data Analyst",
+        "company": "Contoso Retail",
+        "location": "Dallas, TX",
+        "start": "2020-06",
+        "end": "2022-02",
+        "current": false,
+        "bullets": [
+          "Analyzed A/B tests for checkout changes; one recommendation lifted conversion by 2.1%.",
+          "Automated weekly sales reporting with Python and Airflow, saving the team about 6 hours a week.",
+          "Built store-level demand dashboards for regional managers."
+        ]
+      }
+    ],
+    "education": [
+      { "id": "edu_muhnsgyn87t", "degree": "B.S. Statistics", "school": "University of Texas at Austin", "year": "2020", "details": "Minor in Computer Science" }
+    ],
+    "projects": [
+      {
+        "id": "prj_mui3e1030es",
+        "name": "Open transit data pipeline",
+        "link": "",
+        "description": "Personal project modeling public city transit data with dbt and DuckDB.",
+        "bullets": ["Modeled 3 years of public ridership data into a tested star schema with 40+ dbt tests."]
+      }
+    ],
+    "certifications": ["dbt Analytics Engineering Certification (2025)"],
+    "achievements": ["Fabrikam Insurance data team award, 2024"],
+    "languages": ["English (native)", "Spanish (professional)"],
+    "rawResume": "",
+    "careerSwitch": { "active": false, "fromFamily": "", "toFamily": "", "motivation": "" }
+  },
+  "companies": [
+    {
+      "id": "co_mua094hs87d",
+      "name": "Northwind Analytics",
+      "domain": "northwind-analytics.example",
+      "industry": "B2B analytics software",
+      "size": "501-1000",
+      "location": "Austin, TX (hybrid)",
+      "tier": "A",
+      "status": "applied",
+      "interest": 5,
+      "fit": 4,
+      "notes": "Dream company: modern data stack, strong analytics engineering culture.",
+      "research": {
+        "mission": "Help mid-size companies make decisions from trustworthy data.",
+        "products": "Embedded analytics platform and a managed semantic layer for SaaS companies.",
+        "news": "2026-07: announced Series D funding (fictional example). 2026-05: launched a metrics API.",
+        "culture": "Hybrid, 2 office days in Austin. Reviews mention strong mentorship and fast pace.",
+        "interviewProcess": "Recruiter screen, SQL exercise, take-home dbt task, team panel (fictional example).",
+        "salaryRange": "Analytics Engineer: USD 125k-150k base (fictional example).",
+        "keyPeople": "Head of Data: Jordan Lee (fictional).",
+        "sources": ["https://northwind-analytics.example/about"]
+      },
+      "createdAt": "2026-09-20T09:12:00.000Z",
+      "updatedAt": "2026-09-22T17:40:00.000Z"
+    },
+    {
+      "id": "co_muafhsvcqif",
+      "name": "Brightpath Health",
+      "domain": "brightpath-health.example",
+      "industry": "Digital health",
+      "size": "1001-5000",
+      "location": "Remote (US)",
+      "tier": "B",
+      "status": "researching",
+      "interest": 4,
+      "fit": 3,
+      "notes": "Remote-first. Healthcare domain would be new; insurance claims experience is adjacent.",
+      "research": {
+        "mission": "",
+        "products": "",
+        "news": "",
+        "culture": "",
+        "interviewProcess": "",
+        "salaryRange": "",
+        "keyPeople": "",
+        "sources": []
+      },
+      "createdAt": "2026-09-21T10:05:00.000Z",
+      "updatedAt": "2026-09-21T10:05:00.000Z"
+    }
+  ],
+  "jobs": [
+    {
+      "id": "job_muav286dx5f",
+      "title": "Analytics Engineer",
+      "company": "Northwind Analytics",
+      "companyId": "co_mua094hs87d",
+      "location": "Austin, TX",
+      "workMode": "hybrid",
+      "url": "https://northwind-analytics.example/careers/analytics-engineer",
+      "source": "Greenhouse",
+      "salaryMin": 125000,
+      "salaryMax": 150000,
+      "currency": "USD",
+      "description": "We're looking for an Analytics Engineer to own our dbt project and semantic layer. Must have: 4+ years SQL, dbt, a cloud warehouse (Snowflake or BigQuery), data modeling, Git. Nice to have: Looker, Python, Airflow, experience with product analytics.",
+      "status": "applied",
+      "match": 84,
+      "priority": 1,
+      "resumeId": "res_mude4u5ql5a",
+      "coverLetterId": "cl_mudtpwjwyj0",
+      "appliedAt": "2026-09-22",
+      "nextAction": "Follow up",
+      "nextActionDate": "2026-09-29",
+      "contactIds": ["ct_muc4hd44qy9"],
+      "events": [
+        { "date": "2026-09-20", "type": "saved", "note": "Found via Greenhouse" },
+        { "date": "2026-09-22", "type": "applied", "note": "Applied via careers site" }
+      ],
+      "notes": "Match 84: 5/5 must-haves covered; Looker is a gap (Power BI is adjacent).",
+      "createdAt": "2026-09-20T09:30:00.000Z",
+      "updatedAt": "2026-09-22T17:40:00.000Z"
+    },
+    {
+      "id": "job_muba580qvsh",
+      "title": "Senior Data Analyst, Care Operations",
+      "company": "Brightpath Health",
+      "companyId": "co_muafhsvcqif",
+      "location": "Remote (US)",
+      "workMode": "remote",
+      "url": "https://brightpath-health.example/jobs/senior-data-analyst",
+      "source": "Lever",
+      "salaryMin": 115000,
+      "salaryMax": 135000,
+      "currency": "USD",
+      "description": "Senior Data Analyst to support care operations. Must have: SQL, a BI tool (Tableau preferred), stakeholder management, experimentation. Nice to have: healthcare data (claims, EHR), Python.",
+      "status": "saved",
+      "match": 71,
+      "priority": 2,
+      "resumeId": "",
+      "coverLetterId": "",
+      "appliedAt": "",
+      "nextAction": "Analyze and tailor resume",
+      "nextActionDate": "2026-10-02",
+      "contactIds": [],
+      "events": [
+        { "date": "2026-09-21", "type": "saved", "note": "Found via Lever" }
+      ],
+      "notes": "Match 71: Tableau and healthcare domain are gaps; insurance claims work is adjacent.",
+      "createdAt": "2026-09-21T10:10:00.000Z",
+      "updatedAt": "2026-09-21T10:10:00.000Z"
+    },
+    {
+      "id": "job_mubp9j0zhdd",
+      "title": "Data Analyst II",
+      "company": "Lumen Logistics",
+      "companyId": "",
+      "location": "Austin, TX",
+      "workMode": "hybrid",
+      "url": "https://lumen-logistics.example/careers/data-analyst-ii",
+      "source": "Indeed",
+      "salaryMin": 100000,
+      "salaryMax": 120000,
+      "currency": "USD",
+      "description": "Data Analyst II for supply-chain analytics. SQL, Python, Power BI, forecasting basics.",
+      "status": "screening",
+      "match": 68,
+      "priority": 2,
+      "resumeId": "",
+      "coverLetterId": "",
+      "appliedAt": "2026-09-15",
+      "nextAction": "Recruiter screen",
+      "nextActionDate": "2026-10-01",
+      "contactIds": [],
+      "events": [
+        { "date": "2026-09-15", "type": "applied", "note": "Applied via Indeed" },
+        { "date": "2026-09-28", "type": "screening", "note": "Recruiter emailed to schedule a screen" }
+      ],
+      "notes": "Salary top is near Alex's minimum.",
+      "createdAt": "2026-09-15T14:00:00.000Z",
+      "updatedAt": "2026-09-28T16:20:00.000Z"
+    }
+  ],
+  "contacts": [
+    {
+      "id": "ct_muc4hd44qy9",
+      "name": "Priya Natarajan",
+      "title": "Senior Technical Recruiter",
+      "company": "Northwind Analytics",
+      "companyId": "co_mua094hs87d",
+      "relationship": "recruiter",
+      "warmth": 2,
+      "linkedin": "",
+      "email": "",
+      "source": "Web search: Northwind Analytics recruiter data",
+      "status": "connected",
+      "lastContacted": "2026-09-23",
+      "nextFollowUp": "2026-09-30",
+      "interactions": [
+        { "date": "2026-09-21", "channel": "linkedin", "note": "Sent connection note about the Analytics Engineer role" },
+        { "date": "2026-09-23", "channel": "linkedin", "note": "Accepted; said she'd pass my application to the hiring manager" }
+      ],
+      "notes": "Recruits for the data team (fictional person).",
+      "createdAt": "2026-09-20T11:00:00.000Z",
+      "updatedAt": "2026-09-23T09:15:00.000Z"
+    },
+    {
+      "id": "ct_mucjrpawz1z",
+      "name": "Sam Okafor",
+      "title": "Data Platform Engineer",
+      "company": "Northwind Analytics",
+      "companyId": "co_mua094hs87d",
+      "relationship": "alumni",
+      "warmth": 2,
+      "linkedin": "",
+      "email": "",
+      "source": "Web search: Northwind Analytics data platform University of Texas at Austin",
+      "status": "to-contact",
+      "lastContacted": "",
+      "nextFollowUp": "",
+      "interactions": [],
+      "notes": "UT Austin alum on the data platform team; ask about team culture, then a possible referral (fictional person).",
+      "createdAt": "2026-09-29T18:05:00.000Z",
+      "updatedAt": "2026-09-29T18:05:00.000Z"
+    }
+  ],
+  "outreach": [
+    {
+      "id": "out_mucywwkog75",
+      "contactId": "ct_muc4hd44qy9",
+      "jobId": "job_muav286dx5f",
+      "type": "connection",
+      "channel": "linkedin",
+      "subject": "",
+      "body": "Hi Priya, I saw you recruit for Northwind's data team. I'm a senior data analyst (6 years, SQL, dbt, Power BI) and just applied for the Analytics Engineer role, which lines up closely with the pipeline work I do today. I'd love to connect.",
+      "status": "replied",
+      "sentAt": "2026-09-21",
+      "createdAt": "2026-09-21T08:40:00.000Z",
+      "updatedAt": "2026-09-23T09:15:00.000Z"
+    }
+  ],
+  "resumes": [
+    {
+      "id": "res_mude4u5ql5a",
+      "name": "Northwind Analytics - Analytics Engineer",
+      "jobId": "job_muav286dx5f",
+      "template": "classic",
+      "data": {
+        "name": "Alex Rivera",
+        "headline": "Data Analyst | Analytics Engineering: SQL, dbt, Snowflake",
+        "contact": ["Austin, TX", "alex.rivera@example.com", "+1 555 010 0199"],
+        "summary": "Data analyst with 6 years building SQL and dbt pipelines on Snowflake and the dashboards teams rely on. Strong in data modeling, testing and aligning stakeholders on shared metrics.",
+        "skills": ["SQL", "dbt", "Snowflake", "Data modeling", "Git", "Python", "Airflow", "Power BI"],
+        "experience": [
+          {
+            "title": "Senior Data Analyst",
+            "company": "Fabrikam Insurance",
+            "location": "Austin, TX",
+            "dates": "Mar 2022 - Present",
+            "bullets": [
+              "Rebuilt the claims reporting pipeline in dbt on Snowflake, cutting daily refresh time from 5 hours to 40 minutes.",
+              "Defined 15 shared KPIs with actuarial and operations leads, ending conflicting weekly reports.",
+              "Designed a Power BI claims-triage dashboard used by 120 adjusters across 4 regions."
+            ]
+          },
+          {
+            "title": "Data Analyst",
+            "company": "Contoso Retail",
+            "location": "Dallas, TX",
+            "dates": "Jun 2020 - Feb 2022",
+            "bullets": [
+              "Automated weekly sales reporting with Python and Airflow, saving the team about 6 hours a week.",
+              "Analyzed checkout A/B tests; one recommendation lifted conversion by 2.1%."
+            ]
+          }
+        ],
+        "projects": [
+          { "name": "Open transit data pipeline", "link": "", "description": "dbt + DuckDB", "bullets": ["Modeled 3 years of public ridership data into a tested star schema with 40+ dbt tests."] }
+        ],
+        "education": [
+          { "degree": "B.S. Statistics", "school": "University of Texas at Austin", "year": "2020", "details": "Minor in Computer Science" }
+        ],
+        "certifications": ["dbt Analytics Engineering Certification (2025)"]
+      },
+      "matchScore": 84,
+      "atsScore": 80,
+      "createdAt": "2026-09-22T15:00:00.000Z",
+      "updatedAt": "2026-09-22T15:00:00.000Z"
+    }
+  ],
+  "coverLetters": [
+    {
+      "id": "cl_mudtpwjwyj0",
+      "jobId": "job_muav286dx5f",
+      "tone": "professional",
+      "body": "Dear Northwind Analytics hiring team, ... (fictional example, shortened)",
+      "createdAt": "2026-09-22T15:30:00.000Z",
+      "updatedAt": "2026-09-22T15:30:00.000Z"
+    }
+  ],
+  "stories": [
+    {
+      "id": "st_mue9b8z6nss",
+      "title": "Claims pipeline rebuild",
+      "situation": "The claims reporting pipeline took 5 hours to refresh and often failed before morning stand-ups.",
+      "task": "Make daily claims data reliable and ready by 8am.",
+      "action": "Rewrote the legacy SQL scripts as tested dbt models on Snowflake, added incremental loads and freshness alerts.",
+      "result": "Refresh time dropped to 40 minutes, and there were no missed morning reports in the following quarter.",
+      "competencies": ["technical depth", "ownership", "problem solving"],
+      "createdAt": "2026-09-19T12:00:00.000Z",
+      "updatedAt": "2026-09-19T12:00:00.000Z"
+    }
+  ],
+  "answers": {
+    "workAuth": "I'm a US citizen and don't require sponsorship.",
+    "noticePeriod": "Two weeks.",
+    "relocate": "I'm based in Austin and prefer remote or hybrid roles in Austin.",
+    "salaryExpectation": "I'm targeting a base salary in the range of USD 125,000-140,000, depending on the full package."
+  },
+  "offers": [],
+  "actions": [
+    {
+      "id": "act_mueokc41yny",
+      "type": "save-job",
+      "title": "Save Tailspin Travel - Analytics Engineer (76% match)",
+      "detail": "Remote US role on Ashby. Covers 4/5 must-haves (SQL, dbt, Git, data modeling); BigQuery is partial (Snowflake is adjacent) and Looker (nice-to-have) is a gap. Posted range is above your minimum.",
+      "ref": { "jobId": "job_mufyet7l2r2", "contactId": "", "companyId": "" },
+      "payload": {
+        "id": "job_mufyet7l2r2",
+        "title": "Analytics Engineer",
+        "company": "Tailspin Travel",
+        "companyId": "",
+        "location": "Remote (US)",
+        "workMode": "remote",
+        "url": "https://tailspin-travel.example/careers/analytics-engineer",
+        "source": "Ashby",
+        "salaryMin": 120000,
+        "salaryMax": 145000,
+        "currency": "USD",
+        "description": "Tailspin Travel is hiring an Analytics Engineer to build our dbt models on BigQuery and partner with product teams. Must have: 3+ years SQL, dbt, a cloud data warehouse, Git, data modeling. Nice to have: Looker, Python, experimentation.",
+        "status": "saved",
+        "match": 76,
+        "priority": 2,
+        "resumeId": "",
+        "coverLetterId": "",
+        "appliedAt": "",
+        "nextAction": "Analyze and tailor resume",
+        "nextActionDate": "2026-10-02",
+        "contactIds": [],
+        "events": [
+          { "date": "2026-09-30", "type": "saved", "note": "Found via Ashby x-ray search" }
+        ],
+        "notes": "Match 76: must-haves 30/40 (BigQuery partial), title 15/20 (analyst to engineer step), experience 9/15 (travel domain new), location 10/10, salary 10/10, auth 2/5 (not stated).",
+        "createdAt": "2026-09-30T08:10:00.000Z",
+        "updatedAt": "2026-09-30T08:10:00.000Z"
+      },
+      "impact": 3,
+      "effort": 1,
+      "status": "pending",
+      "source": "claude-code",
+      "createdAt": "2026-09-30T08:10:00.000Z",
+      "decidedAt": "",
+      "doneAt": "",
+      "updatedAt": "2026-09-30T08:10:00.000Z"
+    },
+    {
+      "id": "act_muf3lmngoix",
+      "type": "follow-up",
+      "title": "Follow up with Priya re Northwind Analytics - Analytics Engineer",
+      "detail": "Applied 8 days ago (2026-09-22) with no update. Priya offered to pass the application on; a short, friendly check-in is due. You send it on LinkedIn.",
+      "ref": { "jobId": "job_muav286dx5f", "contactId": "ct_muc4hd44qy9", "companyId": "co_mua094hs87d" },
+      "payload": {
+        "body": "Hi Priya, thanks again for passing my application along last week. Since then I finished a small dbt semantic-layer demo that's relevant to the role, and I'm happy to share it. Is there anything you need from me for next steps?"
+      },
+      "impact": 2,
+      "effort": 1,
+      "status": "pending",
+      "source": "planner",
+      "createdAt": "2026-09-30T07:00:00.000Z",
+      "decidedAt": "",
+      "doneAt": "",
+      "updatedAt": "2026-09-30T07:00:00.000Z"
+    },
+    {
+      "id": "act_mufiz0d2gvy",
+      "type": "send-outreach",
+      "title": "Send connection note to Sam Okafor (LinkedIn)",
+      "detail": "Fellow UT Austin alum on Northwind's data platform team. Warm intro before asking about team culture. You send it.",
+      "ref": { "jobId": "job_muav286dx5f", "contactId": "ct_mucjrpawz1z", "companyId": "co_mua094hs87d" },
+      "payload": {
+        "type": "connection",
+        "channel": "linkedin",
+        "subject": "",
+        "body": "Hi Sam, fellow UT Austin alum here. I saw you're on Northwind's data platform team. I'm exploring analytics engineering roles there and would value your perspective. Happy to connect?"
+      },
+      "impact": 3,
+      "effort": 1,
+      "status": "pending",
+      "source": "claude-code",
+      "createdAt": "2026-09-29T18:10:00.000Z",
+      "decidedAt": "",
+      "doneAt": "",
+      "updatedAt": "2026-09-29T18:10:00.000Z"
+    }
+  ],
+  "activity": [
+    { "date": "2026-09-15", "type": "applied", "ref": "job_mubp9j0zhdd", "note": "Applied to Lumen Logistics - Data Analyst II" },
+    { "date": "2026-09-20", "type": "research", "ref": "co_mua094hs87d", "note": "Company research: Northwind Analytics" },
+    { "date": "2026-09-21", "type": "outreach", "ref": "ct_muc4hd44qy9", "note": "Connection note to Priya Natarajan" },
+    { "date": "2026-09-22", "type": "resume", "ref": "job_muav286dx5f", "note": "Tailored resume res_mude4u5ql5a" },
+    { "date": "2026-09-22", "type": "applied", "ref": "job_muav286dx5f", "note": "Applied to Northwind Analytics - Analytics Engineer" },
+    { "date": "2026-09-28", "type": "interview", "ref": "job_mubp9j0zhdd", "note": "Recruiter screen requested by Lumen Logistics" },
+    { "date": "2026-09-29", "type": "research", "ref": "co_mua094hs87d", "note": "Found 1 alum at Northwind Analytics" }
+  ],
+  "learning": [
+    { "skill": "Looker", "resource": "Looker LookML fundamentals (official training)", "status": "doing", "hours": 2, "createdAt": "2026-09-24T19:00:00.000Z", "updatedAt": "2026-09-27T19:00:00.000Z" }
+  ]
+}

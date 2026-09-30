@@ -1,0 +1,185 @@
+<!doctype html>
+<!--
+Waypoint resume template (HTML, ATS-friendly, print to PDF)
+
+How to use:
+- Replace every {{placeholder}}. Repeat the blocks between "REPEAT x" and "END x". Delete sections you don't use.
+- Escape special characters in your text: & becomes &amp;  < becomes &lt;  > becomes &gt;
+- Single column, standard headings, no tables, columns, images or icons, so ATS parsers read it in order.
+- To make a PDF: open this file in a browser, choose Print, set Destination to "Save as PDF",
+  turn off "Headers and footers", and keep Margins at "Default" (the @page rule below sets them).
+- Every line must be true and traceable to the master profile. Keep [add metric] until you have the real number.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{name}} - Resume</title>
+<style>
+  @page { margin: 0.6in 0.65in; }
+
+  :root {
+    --ink: #1a1a1a;
+    --muted: #4a4a4a;
+    --rule: #9a9a9a;
+  }
+
+  * { box-sizing: border-box; }
+
+  html { background: #f2f2f0; }
+
+  body {
+    margin: 0;
+    padding: 24px 16px;
+    color: var(--ink);
+    font-family: Calibri, Carlito, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    font-size: 10.5pt;
+    line-height: 1.38;
+  }
+
+  main {
+    max-width: 8.5in;
+    margin: 0 auto;
+    padding: 0.6in 0.65in;
+    background: #ffffff;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12);
+  }
+
+  header { margin-bottom: 10pt; }
+
+  h1 {
+    margin: 0;
+    font-size: 20pt;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+    line-height: 1.15;
+  }
+
+  .headline {
+    margin: 2pt 0 4pt;
+    font-size: 11.5pt;
+    color: var(--muted);
+  }
+
+  .contact {
+    margin: 0;
+    font-size: 9.5pt;
+    color: var(--muted);
+  }
+
+  .contact a { color: inherit; text-decoration: none; }
+
+  h2 {
+    margin: 12pt 0 5pt;
+    padding-bottom: 2pt;
+    border-bottom: 0.75pt solid var(--rule);
+    font-size: 10.5pt;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    break-after: avoid;
+  }
+
+  h3 {
+    margin: 8pt 0 0;
+    font-size: 10.5pt;
+    font-weight: 700;
+    break-after: avoid;
+  }
+
+  .meta {
+    margin: 0 0 3pt;
+    font-size: 9.5pt;
+    color: var(--muted);
+    break-after: avoid;
+  }
+
+  p { margin: 0 0 4pt; }
+
+  ul { margin: 2pt 0 4pt; padding-left: 14pt; }
+
+  li { margin: 0 0 2pt; padding-left: 2pt; }
+
+  .skills li { margin-bottom: 1pt; }
+
+  section { break-inside: auto; }
+
+  @media print {
+    html, body { background: #ffffff; }
+    body { padding: 0; }
+    main { max-width: none; margin: 0; padding: 0; box-shadow: none; }
+    a { color: inherit; text-decoration: none; }
+  }
+</style>
+</head>
+<body>
+<main>
+
+  <header>
+    <h1>{{name}}</h1>
+    <p class="headline">{{headline}}</p>
+    <p class="contact">{{location}} | {{email}} | {{phone}} | <a href="{{linkedin_url}}">{{linkedin_display, e.g. linkedin.com/in/name}}</a> | <a href="{{website_url}}">{{website_display}}</a></p>
+  </header>
+
+  <section>
+    <h2>Summary</h2>
+    <p>{{summary_2_to_3_lines}}</p>
+  </section>
+
+  <section class="skills">
+    <h2>Skills</h2>
+    <ul>
+      <!-- REPEAT skill_group -->
+      <li><strong>{{skill_group}}:</strong> {{skill}}, {{skill}}, {{skill}}</li>
+      <!-- END skill_group -->
+    </ul>
+  </section>
+
+  <section>
+    <h2>Experience</h2>
+
+    <!-- REPEAT experience (newest first) -->
+    <h3>{{title}}, {{company}}</h3>
+    <p class="meta">{{location}} | {{start: Mon yyyy}} - {{end: Mon yyyy or Present}}</p>
+    <ul>
+      <!-- REPEAT bullet -->
+      <li>{{Action verb}} {{what you did}} using {{tools/methods}}, {{result: metric or [add metric]}}</li>
+      <!-- END bullet -->
+    </ul>
+    <!-- END experience -->
+  </section>
+
+  <section>
+    <h2>Projects</h2>
+
+    <!-- REPEAT projects -->
+    <h3>{{project_name}}</h3>
+    <p class="meta">{{link_optional}}</p>
+    <ul>
+      <li>{{what it does and your role}}, {{tools}}, {{result or usage}}</li>
+    </ul>
+    <!-- END projects -->
+  </section>
+
+  <section>
+    <h2>Education</h2>
+
+    <!-- REPEAT education -->
+    <h3>{{degree}}, {{school}}</h3>
+    <p class="meta">{{year}}</p>
+    <p>{{details_optional}}</p>
+    <!-- END education -->
+  </section>
+
+  <section>
+    <h2>Certifications</h2>
+    <ul>
+      <!-- REPEAT certification -->
+      <li>{{certification_name}}, {{issuer}}, {{year}}</li>
+      <!-- END certification -->
+    </ul>
+  </section>
+
+</main>
+</body>
+</html>

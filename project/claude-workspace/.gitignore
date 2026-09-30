@@ -1,0 +1,19 @@
+# Waypoint Claude workspace - keep personal data out of git
+
+# Your real data file, its backup, and any other copies (the fictional example is kept)
+data/waypoint-data.json
+data/*.json
+!data/waypoint-data.example.json
+
+# Files you drop in for Claude to read (resumes, job descriptions, offer letters)
+inbox/*
+!inbox/README.md
+
+# Everything Claude drafts for you
+output/**
+!output/README.md
+
+# Secrets and personal Claude Code settings, just in case
+.env
+**/.env
+.claude/settings.local.json
