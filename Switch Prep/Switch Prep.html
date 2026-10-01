@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Switch Prep</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/app.css">
+</head>
+<body>
+<div class="wrap">
+
+<header class="top">
+  <h1>Switch prep planner</h1>
+  <p class="lede">Every interview topic for a product-company / AI-engineer switch, from beginner to advanced. Each tab has its own checklist and progress bar. Ticks, ★ revisit marks, your notes and the application tracker are saved in this browser.</p>
+  <div class="overall" aria-label="Overall progress">
+    <div class="bar big"><i id="overallBar"></i></div>
+    <span id="overallTxt"></span>
+  </div>
+</header>
+
+<aside class="side">
+  <nav id="tabs" aria-label="Topics"></nav>
+  <div class="tools">
+    <button class="btn" id="exportBtn">Export progress (.json)</button>
+    <label class="btn file">Import progress<input type="file" id="importFile" accept="application/json,.json" hidden></label>
+    <button class="btn danger" id="resetAll">Clear everything</button>
+  </div>
+</aside>
+
+<main id="view" tabindex="-1"></main>
+
+<footer>Content lives in <code>data/*.js</code>. See README.md to add topics or problems. Practice links without a direct URL open a web search for the problem.</footer>
+</div>
+
+<noscript><p style="padding:20px">This planner needs JavaScript enabled.</p></noscript>
+
+<script>window.PREP={_t:[],add:function(t){this._t.push(t);}};</script>
+<script src="data/roadmap.js"></script>
+<script src="data/dsa-1.js"></script>
+<script src="data/dsa-2.js"></script>
+<script src="data/dsa-3.js"></script>
+<script src="data/dsa-4.js"></script>
+<script src="data/oop.js"></script>
+<script src="data/system-design.js"></script>
+<script src="data/hld.js"></script>
+<script src="data/lld.js"></script>
+<script src="data/dbms-sql.js"></script>
+<script src="data/os.js"></script>
+<script src="data/networks.js"></script>
+<script src="data/python.js"></script>
+<script src="data/ml.js"></script>
+<script src="data/dl.js"></script>
+<script src="data/genai.js"></script>
+<script src="data/mlsd.js"></script>
+<script src="data/behavioral.js"></script>
+<script src="data/refs/refs-dsa.js"></script>
+<script src="data/refs/refs-oop-lld.js"></script>
+<script src="data/refs/refs-sd-hld.js"></script>
+<script src="data/refs/refs-cs.js"></script>
+<script src="data/refs/refs-py-ml.js"></script>
+<script src="data/refs/refs-dl-genai.js"></script>
+<script src="data/refs/refs-mlsd-career.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>

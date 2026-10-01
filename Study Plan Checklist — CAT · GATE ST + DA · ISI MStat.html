@@ -13,20 +13,20 @@
   padding-bottom:env(safe-area-inset-bottom,0px);
   --bg:#F1F4F2; --surface:#FFFFFF; --ink:#172022; --muted:#5B6A6C; --line:#D3DAD7;
   --accent:#0E6F68; --accent-soft:#DDEEEB; --due:#8A3B12; --due-soft:#F6E7DF;
-  --exam:#1F2F5C; --exam-soft:#E3E8F5;
+  --exam:#1F2F5C; --exam-soft:#E3E8F5; --bad:#A3271C; --bad-soft:#F8E1DD;
   --font:"IBM Plex Sans",-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
 }
 @media (prefers-color-scheme:dark){
   :root:not([data-theme="light"]){
     --bg:#0F1514; --surface:#171F1E; --ink:#E5EBE9; --muted:#93A19E; --line:#2A3634;
     --accent:#4FB8AE; --accent-soft:#183531; --due:#E0A274; --due-soft:#3A2418;
-    --exam:#A9B8E8; --exam-soft:#1D2540;
+    --exam:#A9B8E8; --exam-soft:#1D2540; --bad:#F2A49A; --bad-soft:#3D1D19;
   }
 }
 :root[data-theme="dark"]{
   --bg:#0F1514; --surface:#171F1E; --ink:#E5EBE9; --muted:#93A19E; --line:#2A3634;
   --accent:#4FB8AE; --accent-soft:#183531; --due:#E0A274; --due-soft:#3A2418;
-  --exam:#A9B8E8; --exam-soft:#1D2540;
+  --exam:#A9B8E8; --exam-soft:#1D2540; --bad:#F2A49A; --bad-soft:#3D1D19;
 }
 html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 16px);}
 *,*::before,*::after{box-sizing:inherit}
@@ -54,12 +54,16 @@ h1{font-size:clamp(1.7rem,3.4vw,2.4rem);font-weight:600;letter-spacing:-0.01em;l
 .tl-seg:first-child{border-radius:6px 0 0 6px}.tl-seg:last-child{border-radius:0 6px 6px 0;border-right:0}
 .tl-seg.p1{background:var(--accent-soft)}.tl-seg.p2{background:var(--accent-soft);filter:brightness(.96)}
 .tl-seg.p3{background:var(--accent);color:#fff}.tl-seg.p4{background:var(--accent-soft)}
-.tl-marks{position:relative;height:44px;min-width:620px;margin-top:4px}
+.tl-marks{position:relative;height:64px;min-width:620px;margin-top:4px}
 .tl-mark{position:absolute;top:0;transform:translateX(-50%);text-align:center;font-size:.78rem;line-height:1.2;color:var(--exam)}
 .tl-mark::before{content:"";display:block;width:2px;height:12px;background:var(--exam);margin:0 auto 4px}
 .tl-mark b{display:block;font-weight:600}
-.tl-today{position:absolute;top:-8px;width:2px;height:50px;background:var(--due);transform:translateX(-50%)}
-.tl-today span{position:absolute;top:-16px;left:6px;font-size:.72rem;color:var(--due);white-space:nowrap}
+/* line runs through the bar down to the tick row; label sits below the date labels so nothing overlaps */
+.tl-today{position:absolute;top:-38px;width:2px;height:50px;background:var(--due);transform:translateX(-50%);pointer-events:none;z-index:1}
+.tl-today span{position:absolute;top:88px;left:50%;transform:translateX(-50%);font-size:.72rem;font-weight:600;color:var(--due);white-space:nowrap}
+.tl-today span::before{content:"▲ "}
+.tl-today.near-start span{left:-1px;transform:none}
+.tl-today.near-end span{left:auto;right:-1px;transform:none}
 
 /* side nav */
 .side nav{display:flex;flex-direction:column;gap:2px}
@@ -115,13 +119,46 @@ td:first-child{white-space:nowrap;font-weight:500}
 .rules ol{margin:0;padding-left:20px}
 .rules li{margin:0 0 8px;max-width:72ch}
 
+/* error-log link */
+.side .tools a.btn{display:block;text-align:center;border:1px solid var(--line);padding:7px 12px;font-size:.88rem;color:var(--ink)}
+.side .tools a.btn.off{color:var(--muted);border-style:dashed;cursor:help}
+
+/* mock score tracker */
+.legend{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:.85rem;color:var(--muted);margin:0 0 18px}
+.mock-tools{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;margin:0 0 10px}
+.mock-tools .hint{color:var(--muted);font-size:.86rem}
+.mt{overflow-x:auto;-webkit-overflow-scrolling:touch;border:1px solid var(--line);border-radius:8px;margin:0 0 10px}
+.mt table{width:max-content;min-width:100%;font-size:.88rem}
+.mt th,.mt td{padding:6px 9px;vertical-align:middle;white-space:nowrap;font-variant-numeric:tabular-nums}
+.mt th:first-child,.mt td:first-child{position:sticky;left:0;z-index:1;background:var(--surface);border-right:1px solid var(--line);min-width:120px}
+.mt .sum{background:var(--bg)}
+.mt .mock{border-left:1px solid var(--line);text-align:center}
+.mt tr.total td{font-weight:600;border-top:2px solid var(--line)}
+.mt input{font:inherit;font-size:.88rem;width:66px;padding:4px 6px;border:1px solid var(--line);border-radius:5px;background:var(--surface);color:var(--ink);font-variant-numeric:tabular-nums}
+.mt input:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+.mt input.nm{width:92px;font-weight:500}
+.mt input[type=date]{width:132px;margin-top:4px;font-size:.8rem;color:var(--muted)}
+.mt .mh{display:flex;gap:4px;align-items:center;justify-content:center}
+.mt .x{font:inherit;line-height:1;width:24px;height:24px;border:1px solid transparent;border-radius:5px;background:none;color:var(--muted);cursor:pointer}
+.mt .x:hover{border-color:var(--bad);color:var(--bad)}
+.mt small{display:block;color:var(--muted);font-size:.76rem;font-weight:400}
+.mt .empty{color:var(--muted);font-style:italic;font-weight:400}
+.pill{display:inline-block;font-size:.78rem;font-weight:600;padding:2px 9px;border-radius:999px;white-space:nowrap}
+.pill.good{color:var(--accent);background:var(--accent-soft)}
+.pill.warn{color:var(--due);background:var(--due-soft)}
+.pill.bad{color:var(--bad);background:var(--bad-soft)}
+.pill.none{color:var(--muted);background:var(--bg);border:1px solid var(--line)}
+.prio{display:inline-block;margin-left:6px;font-size:.72rem;font-weight:600;color:var(--bad)}
+.up{color:var(--accent)}.down{color:var(--bad)}.flat{color:var(--muted)}
+
 footer{grid-column:1/-1;color:var(--muted);font-size:.85rem;border-top:1px solid var(--line);padding-top:14px;max-width:80ch}
 
 @media (prefers-reduced-motion:no-preference){ul.check label{transition:color .15s}}
 @media print{
   body{background:#fff;color:#000;font-size:11.5px}
   .wrap{display:block;padding:0;max-width:none}
-  .side,.tl-today{display:none}
+  .side,.tl-today,.mock-tools .btn,.mt .x{display:none}
+  .mt{overflow:visible}
   .block,.timeline{border-color:#bbb;break-inside:avoid;box-shadow:none}
   section.phase{break-before:page}
   section.phase:first-of-type{break-before:auto}
@@ -161,6 +198,7 @@ footer{grid-column:1/-1;color:var(--muted);font-size:.85rem;border-top:1px solid
 <aside class="side">
   <nav id="nav">
     <a href="#today">Do this week<span class="pct" data-pct="today"></span></a>
+    <a href="#mocks">Mock scores</a>
     <a href="#p1">Phase 1<span class="pct" data-pct="p1"></span></a>
     <a href="#p2">Phase 2<span class="pct" data-pct="p2"></span></a>
     <a href="#p3">Phase 3<span class="pct" data-pct="p3"></span></a>
@@ -170,6 +208,7 @@ footer{grid-column:1/-1;color:var(--muted);font-size:.85rem;border-top:1px solid
   </nav>
   <div class="tools">
     <div class="total" id="total"></div>
+    <a class="btn" data-errorlog target="_blank" rel="noopener">Open error log ↗</a>
     <button class="btn" onclick="window.print()">Print / save as PDF</button>
     <button class="btn" id="reset">Clear all ticks</button>
   </div>
@@ -193,6 +232,20 @@ footer{grid-column:1/-1;color:var(--muted);font-size:.85rem;border-top:1px solid
       <li><input type="checkbox" id="t9"><label for="t9">Tell your manager which weeks you'll want leave: 1–5 Feb (before GATE) and, if possible, 2–3 days before your ISI date in May.</label></li>
     </ul>
   </div>
+</section>
+
+<!-- ============ MOCK SCORES ============ -->
+<section class="phase" id="mocks">
+  <div class="phase-head"><h2>Mock score tracker</h2><span class="dates">section-wise marks, one column per mock</span></div>
+  <div class="phase-intro">
+    <p>Add a column after every mock and enter marks for each section (negatives are fine). Scroll sideways as the columns pile up. Verdicts compare the average of your <b>last 3 mocks</b> with the target % for that section; edit Max and Target to match the paper and your goal. Every wrong answer still goes in the <a data-errorlog target="_blank" rel="noopener">error log</a>.</p>
+  </div>
+  <div class="legend">
+    <span><span class="pill good">Maintain</span> recent avg at or above target</span>
+    <span><span class="pill warn">Watch</span> above target but last mock dipped ≥ 5 pts, or within 10 pts of target and rising</span>
+    <span><span class="pill bad">Focus</span> below target and not closing the gap</span>
+  </div>
+  <div id="mockhost"></div>
 </section>
 
 <!-- ============ PHASE 1 ============ -->
@@ -550,6 +603,9 @@ footer{grid-column:1/-1;color:var(--muted);font-size:.85rem;border-top:1px solid
 </div>
 
 <script>
+/* ===== ERROR LOG LINK — paste your Google Sheet URL between the quotes ===== */
+var ERROR_LOG_URL = '';
+
 (function(){
   var KEY='studyplan-ticks-v1';
   var boxes=Array.prototype.slice.call(document.querySelectorAll('ul.check input[type=checkbox]'));
@@ -584,10 +640,161 @@ footer{grid-column:1/-1;color:var(--muted);font-size:.85rem;border-top:1px solid
     var start=new Date(2026,9,1), end=new Date(2027,4,15), now=new Date();
     var f=(now-start)/(end-start);
     if(f>=0&&f<=1){
-      var m=document.createElement('div'); m.className='tl-today'; m.style.left=(f*100)+'%';
+      var m=document.createElement('div'); m.className='tl-today'+(f<0.04?' near-start':f>0.96?' near-end':''); m.style.left=(f*100)+'%';
       m.innerHTML='<span>today</span>'; document.getElementById('tlmarks').appendChild(m);
     }
   }catch(e){}
+
+  // error-log links
+  Array.prototype.forEach.call(document.querySelectorAll('[data-errorlog]'),function(a){
+    if(ERROR_LOG_URL){ a.href=ERROR_LOG_URL; }
+    else{
+      a.removeAttribute('href'); a.classList.add('off');
+      a.title='Set ERROR_LOG_URL near the top of the <script> in this file';
+      if(a.classList.contains('btn')) a.textContent='Error log — link not set';
+    }
+  });
+
+  // ===== mock score tracker =====
+  var EXAMS=[
+    {key:'cat',name:'CAT',due:'Sun 29 Nov',note:'+3 / −1 on MCQs, no penalty on TITA',sections:[
+      {k:'varc',n:'VARC',max:72,target:55},{k:'dilr',n:'DILR',max:66,target:45},{k:'qa',n:'QA',max:66,target:50}]},
+    {key:'gst',name:'GATE ST',due:'Feb',note:'GA 15 + subject 85 · −⅓ / −⅔ on MCQs',sections:[
+      {k:'ga',n:'General Aptitude',max:15,target:70},{k:'core',n:'Statistics',max:85,target:55}]},
+    {key:'gda',name:'GATE DA',due:'Feb',note:'GA 15 + subject 85 · −⅓ / −⅔ on MCQs',sections:[
+      {k:'ga',n:'General Aptitude',max:15,target:70},{k:'core',n:'Data Science & AI',max:85,target:55}]},
+    {key:'isi',name:'ISI MStat',due:'May',note:'PSA objective · PSB written',sections:[
+      {k:'psa',n:'PSA (objective)',max:120,target:60},{k:'psb',n:'PSB (subjective)',max:100,target:50}]}
+  ];
+  var MKEY='studyplan-mocks-v1', RECENT=3, CLOSE=10, DIP=5;
+  var ms={};
+  try{ ms=JSON.parse(localStorage.getItem(MKEY)||'{}')||{}; }catch(e){ ms={}; }
+  function msave(){ try{ localStorage.setItem(MKEY,JSON.stringify(ms)); }catch(e){} }
+  function data(ex){ var d=ms[ex.key]=ms[ex.key]||{}; d.mocks=d.mocks||[]; d.cfg=d.cfg||{}; return d; }
+  function num(v){ return (v===''||v==null||isNaN(v))?null:+v; }
+  function cfg(d,s){
+    var c=d.cfg[s.k]||{}, mx=num(c.max), tg=num(c.target);
+    return {max:mx!=null&&mx>0?mx:s.max, target:tg!=null?tg:s.target};
+  }
+  function esc(t){ return String(t==null?'':t).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];}); }
+  function mean(a){ return a.length?a.reduce(function(x,y){return x+y;},0)/a.length:null; }
+  function r1(v){ return Math.round(v*10)/10; }
+  function todayISO(){ var t=new Date(); return t.getFullYear()+'-'+('0'+(t.getMonth()+1)).slice(-2)+'-'+('0'+t.getDate()).slice(-2); }
+
+  // verdict: recent avg (last RECENT mocks) vs target, nudged by trend (last mock vs the ones before it)
+  function stats(pcts,target){
+    var n=pcts.length, o={n:n};
+    if(!n){ o.v={c:'none',t:'No data'}; return o; }
+    o.avg=mean(pcts); o.rec=mean(pcts.slice(-RECENT));
+    o.trend=n>1?pcts[n-1]-mean(pcts.slice(Math.max(0,n-1-RECENT),n-1)):null;
+    o.gap=o.rec-target;
+    var g=Math.round(o.gap), gs=(g>=0?'+':'−')+Math.abs(g)+' pts vs target';
+    if(o.gap>=0) o.v=(o.trend!=null&&o.trend<=-DIP)?{c:'warn',t:'Maintain · watch dip',d:gs}:{c:'good',t:'Maintain progress',d:gs};
+    else if(o.gap>=-CLOSE&&o.trend!=null&&o.trend>0) o.v={c:'warn',t:'Improving · keep pushing',d:gs};
+    else o.v={c:'bad',t:'Focus to improve',d:gs};
+    return o;
+  }
+  function trendHTML(t){
+    if(t==null) return '<span class="flat">—</span>';
+    var r=Math.round(t);
+    return r>0?'<span class="up">↑ +'+r+'</span>':r<0?'<span class="down">↓ −'+(-r)+'</span>':'<span class="flat">→ 0</span>';
+  }
+  function verdictHTML(v){ return '<span class="pill '+v.c+'">'+v.t+'</span>'+(v.d?'<small>'+v.d+'</small>':''); }
+
+  var host=document.getElementById('mockhost');
+  EXAMS.forEach(function(ex){
+    var b=document.createElement('div'); b.className='block'; b.setAttribute('data-exam',ex.key);
+    b.innerHTML='<div class="block-head"><h3>'+ex.name+'</h3><span class="when">'+ex.note+'</span><span class="due exam">'+ex.name+' · '+ex.due+'</span></div>'+
+      '<div class="mock-tools"><button class="btn" data-add>+ Add mock</button><span class="hint" data-summary></span></div>'+
+      '<div class="mt"></div>';
+    host.appendChild(b);
+    var mt=b.querySelector('.mt');
+    b.querySelector('[data-add]').addEventListener('click',function(){
+      var d=data(ex); d.mocks.push({name:'Mock '+(d.mocks.length+1),date:todayISO(),s:{}}); msave(); render(ex);
+      mt.scrollLeft=mt.scrollWidth;
+      var first=mt.querySelector('td input[data-i="'+(d.mocks.length-1)+'"]'); if(first) first.focus();
+    });
+    mt.addEventListener('input',function(e){
+      var el=e.target, d=data(ex), i=el.getAttribute('data-i'), sec=el.getAttribute('data-sec'),
+          f=el.getAttribute('data-f'), c=el.getAttribute('data-cfg');
+      if(c){ d.cfg[sec]=d.cfg[sec]||{}; d.cfg[sec][c]=el.value===''?'':+el.value; }
+      else if(f){ d.mocks[i][f]=el.value; }
+      else if(sec&&i!=null){ var v=num(el.value); if(v==null) delete d.mocks[i].s[sec]; else d.mocks[i].s[sec]=v; }
+      else return;
+      msave(); compute(ex);
+    });
+    mt.addEventListener('click',function(e){
+      var x=e.target.closest('[data-del]'); if(!x) return;
+      var d=data(ex), i=+x.getAttribute('data-del');
+      if(!confirm('Delete "'+(d.mocks[i].name||'this mock')+'" from '+ex.name+'?')) return;
+      d.mocks.splice(i,1); msave(); render(ex);
+    });
+    render(ex);
+  });
+
+  function render(ex){
+    var d=data(ex), mt=document.querySelector('[data-exam="'+ex.key+'"] .mt');
+    var h='<table><thead><tr><th>Section</th><th class="sum">Max</th><th class="sum">Target %</th><th class="sum">Avg %</th><th class="sum">Last '+RECENT+' %</th><th class="sum">Trend</th><th class="sum">Verdict</th>';
+    d.mocks.forEach(function(m,i){
+      h+='<th class="mock"><div class="mh"><input class="nm" data-f="name" data-i="'+i+'" value="'+esc(m.name)+'" aria-label="Mock name"><button class="x" data-del="'+i+'" title="Delete this mock" aria-label="Delete mock">×</button></div>'+
+         '<input type="date" data-f="date" data-i="'+i+'" value="'+esc(m.date)+'" aria-label="Mock date"></th>';
+    });
+    if(!d.mocks.length) h+='<th class="mock empty">no mocks yet</th>';
+    h+='</tr></thead><tbody>';
+    ex.sections.forEach(function(s){
+      var c=cfg(d,s);
+      h+='<tr data-row="'+s.k+'"><td>'+esc(s.n)+'<span class="prio" data-o="prio"></span></td>'+
+         '<td class="sum"><input type="number" min="1" step="any" data-cfg="max" data-sec="'+s.k+'" value="'+c.max+'" aria-label="'+esc(s.n)+' max marks"></td>'+
+         '<td class="sum"><input type="number" min="0" max="100" step="any" data-cfg="target" data-sec="'+s.k+'" value="'+c.target+'" aria-label="'+esc(s.n)+' target percent"></td>'+
+         '<td class="sum" data-o="avg"></td><td class="sum" data-o="rec"></td><td class="sum" data-o="trend"></td><td class="sum" data-o="vd"></td>';
+      d.mocks.forEach(function(m,i){
+        var v=m.s[s.k];
+        h+='<td class="mock"><input type="number" step="any" data-i="'+i+'" data-sec="'+s.k+'" value="'+(v==null?'':v)+'" placeholder="–" aria-label="'+esc(s.n)+' score, '+esc(m.name)+'"></td>';
+      });
+      if(!d.mocks.length) h+='<td class="mock"></td>';
+      h+='</tr>';
+    });
+    h+='<tr class="total" data-row="_t"><td>Total</td><td class="sum" data-o="max"></td><td class="sum" data-o="tgt"></td><td class="sum" data-o="avg"></td><td class="sum" data-o="rec"></td><td class="sum" data-o="trend"></td><td class="sum" data-o="vd"></td>';
+    d.mocks.forEach(function(m,i){ h+='<td class="mock" data-o="t'+i+'"></td>'; });
+    if(!d.mocks.length) h+='<td class="mock"></td>';
+    h+='</tr></tbody></table>';
+    mt.innerHTML=h;
+    compute(ex);
+  }
+
+  function fill(row,o,max){
+    row.querySelector('[data-o="avg"]').innerHTML=o.n?Math.round(o.avg)+'%<small>'+r1(o.avg*max/100)+' / '+r1(max)+'</small>':'—';
+    row.querySelector('[data-o="rec"]').innerHTML=o.n?Math.round(o.rec)+'%':'—';
+    row.querySelector('[data-o="trend"]').innerHTML=trendHTML(o.trend);
+    row.querySelector('[data-o="vd"]').innerHTML=verdictHTML(o.v);
+  }
+
+  function compute(ex){
+    var d=data(ex), b=document.querySelector('[data-exam="'+ex.key+'"]'), tmax=0, tw=0, worst=null, scored=false;
+    ex.sections.forEach(function(s){
+      var c=cfg(d,s), row=b.querySelector('tr[data-row="'+s.k+'"]');
+      tmax+=c.max; tw+=c.max*c.target;
+      var pcts=d.mocks.filter(function(m){return m.s[s.k]!=null;}).map(function(m){return 100*m.s[s.k]/c.max;});
+      var o=stats(pcts,c.target); fill(row,o,c.max); if(o.n) scored=true;
+      row.querySelector('[data-o="prio"]').textContent='';
+      if(o.n&&o.gap<0&&(!worst||o.gap<worst.gap)) worst={gap:o.gap,row:row,name:s.n};
+    });
+    if(worst) worst.row.querySelector('[data-o="prio"]').textContent='★ priority';
+    // total uses only mocks with every section filled in
+    var ttgt=tmax?tw/tmax:0, tot=b.querySelector('tr[data-row="_t"]'), tpcts=[];
+    tot.querySelector('[data-o="max"]').textContent=r1(tmax);
+    tot.querySelector('[data-o="tgt"]').textContent=Math.round(ttgt);
+    d.mocks.forEach(function(m,i){
+      var sum=0, all=true, any=false;
+      ex.sections.forEach(function(s){ if(m.s[s.k]==null) all=false; else { any=true; sum+=m.s[s.k]; } });
+      tot.querySelector('[data-o="t'+i+'"]').innerHTML=!any?'—':all?r1(sum)+'<small>'+Math.round(100*sum/tmax)+'%</small>':r1(sum)+'<small>partial</small>';
+      if(all) tpcts.push(100*sum/tmax);
+    });
+    fill(tot,stats(tpcts,ttgt),tmax);
+    var n=d.mocks.length;
+    b.querySelector('[data-summary]').textContent=!n?'Add a column after each mock.':
+      n+' mock'+(n>1?'s':'')+' logged'+(worst?' · focus first on '+worst.name:scored?' · every section on target':'');
+  }
 
   // active nav on scroll
   var links=Array.prototype.slice.call(document.querySelectorAll('#nav a'));
