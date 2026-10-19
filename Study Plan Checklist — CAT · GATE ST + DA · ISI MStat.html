@@ -71,6 +71,16 @@ h1{font-size:clamp(1.7rem,3.4vw,2.4rem);font-weight:600;letter-spacing:-0.01em;l
 .side a:hover{background:var(--surface)}
 .side a.active{border-left-color:var(--accent);background:var(--surface)}
 .side a .pct{color:var(--muted);font-variant-numeric:tabular-nums;font-size:.85rem}
+/* tabs: plan vs mock scores */
+.tabs{display:flex;gap:4px;border-bottom:1px solid var(--line);margin-bottom:20px}
+.tabs a{padding:8px 16px;text-decoration:none;color:var(--muted);font-weight:500;border-bottom:3px solid transparent;margin-bottom:-1px}
+.tabs a:hover{color:var(--ink)}
+.tabs a[aria-selected="true"]{color:var(--accent);border-bottom-color:var(--accent)}
+.tabs a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+body[data-view="plan"] #mocks,
+body[data-view="mocks"] main>section:not(#mocks),
+body[data-view="mocks"] .side nav,
+body[data-view="mocks"] header>:not(.tabs):not(h1){display:none}
 .side .tools{margin-top:18px;display:flex;flex-direction:column;gap:8px}
 .btn{font:inherit;font-size:.88rem;padding:7px 12px;border-radius:6px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer}
 .btn:hover{border-color:var(--accent)}
@@ -94,6 +104,9 @@ section.phase{margin-bottom:56px}
 .due{margin-left:auto;font-size:.8rem;font-weight:500;color:var(--due);background:var(--due-soft);padding:2px 9px;border-radius:999px;white-space:nowrap}
 .due.exam{color:var(--exam);background:var(--exam-soft)}
 .note{font-size:.9rem;color:var(--muted);margin:0 0 8px;max-width:70ch}
+.block.current{border-color:var(--accent);box-shadow:inset 3px 0 0 var(--accent)}
+.tw-jump{margin-left:auto;font-size:.85rem}
+#tw-range{font-weight:400;color:var(--muted);font-size:.8em}
 
 ul.check{list-style:none;margin:0;padding:0}
 ul.check li{display:grid;grid-template-columns:22px 1fr;gap:10px;padding:7px 0;border-top:1px solid var(--line);align-items:start}
@@ -171,6 +184,10 @@ footer{grid-column:1/-1;color:var(--muted);font-size:.85rem;border-top:1px solid
 <div class="wrap">
 
 <header>
+  <div class="tabs" role="tablist">
+    <a role="tab" href="#plan" data-tab="plan">Study plan</a>
+    <a role="tab" href="#mocks" data-tab="mocks">Mock scores</a>
+  </div>
   <h1>Study plan checklist: CAT → GATE ST + DA → ISI MStat</h1>
   <p class="lede">A week-by-week plan for a working AI engineer building statistics from scratch. Tick boxes as you finish; your progress is saved in this browser. Deadlines mean “problems solved”, not “videos watched”.</p>
   <div class="facts">
@@ -198,7 +215,6 @@ footer{grid-column:1/-1;color:var(--muted);font-size:.85rem;border-top:1px solid
 <aside class="side">
   <nav id="nav">
     <a href="#today">Do this week<span class="pct" data-pct="today"></span></a>
-    <a href="#mocks">Mock scores</a>
     <a href="#p1">Phase 1<span class="pct" data-pct="p1"></span></a>
     <a href="#p2">Phase 2<span class="pct" data-pct="p2"></span></a>
     <a href="#p3">Phase 3<span class="pct" data-pct="p3"></span></a>
@@ -218,9 +234,15 @@ footer{grid-column:1/-1;color:var(--muted);font-size:.85rem;border-top:1px solid
 
 <!-- ============ TODAY ============ -->
 <section class="phase" id="today">
-  <div class="phase-head"><h2>Do this week (29 Sep – 4 Oct)</h2><span class="prog" data-prog="today"></span></div>
-  <div class="block">
-    <ul class="check" data-phase="today">
+  <div class="phase-head"><h2>Do this week <span id="tw-range"></span></h2><span class="prog" data-prog="today"></span></div>
+  <!-- filled from the matching week block by the script, ticks stay in sync with the plan -->
+  <div class="block" id="tw-block" hidden>
+    <div class="block-head"><h3 id="tw-title"></h3><span class="when" id="tw-when"></span><a class="tw-jump" id="tw-jump">see in plan ↓</a></div>
+    <ul class="check mirror" data-phase="today" id="tw-list"></ul>
+  </div>
+  <div class="block" id="setup-block">
+    <div class="block-head"><h3>Setup week</h3><span class="when">29 Sep – 4 Oct</span><span class="due">due 4 Oct</span></div>
+    <ul class="check" data-phase="setup">
       <li><input type="checkbox" id="t1"><label for="t1">Confirm GATE 2027 registration for <b>both</b> ST (primary) and DA (secondary). Late-fee window closes 5 Oct.</label></li>
       <li><input type="checkbox" id="t2"><label for="t2">Download the revised GATE 2027 <b>ST</b> and <b>DA</b> syllabus PDFs. Print them; tick topics off against this plan.</label></li>
       <li><input type="checkbox" id="t3"><label for="t3">Create one error log (notebook or a single Google Sheet): columns = date, exam, topic, question ref, why wrong, correct idea.</label></li>
@@ -608,7 +630,7 @@ var ERROR_LOG_URL = '';
 
 (function(){
   var KEY='studyplan-ticks-v1';
-  var boxes=Array.prototype.slice.call(document.querySelectorAll('ul.check input[type=checkbox]'));
+  var boxes=Array.prototype.slice.call(document.querySelectorAll('ul.check:not(.mirror) input[type=checkbox]'));
   var state={};
   try{ state=JSON.parse(localStorage.getItem(KEY)||'{}')||{}; }catch(e){ state={}; }
   boxes.forEach(function(b){ if(state[b.id]) b.checked=true; });
@@ -627,11 +649,71 @@ var ERROR_LOG_URL = '';
       var pc=document.querySelector('[data-pct="'+p+'"]'); if(pc) pc.textContent=Math.round(100*phases[p].d/phases[p].t)+'%';
     });
     var tot=document.getElementById('total'); if(tot) tot.textContent=all.d+' of '+all.t+' items done';
+    // "Do this week" progress = the mirrored current week
+    var tw=document.querySelectorAll('#tw-list input'), twd=0;
+    Array.prototype.forEach.call(tw,function(m){ if(m.checked) twd++; });
+    var tp=document.querySelector('[data-prog="today"]'), tpc=document.querySelector('[data-pct="today"]');
+    if(tp) tp.textContent=tw.length?twd+' / '+tw.length+' done':'';
+    if(tpc) tpc.textContent=tw.length?Math.round(100*twd/tw.length)+'%':'';
   }
+
+  // ===== "Do this week": pick the week block whose dates contain today =====
+  // .when text looks like "5 – 11 Oct", "26 Oct – 1 Nov", "1 Feb – your paper dates"
+  var MON={Jan:0,Feb:1,Mar:2,Apr:3,May:4,Jun:5,Jul:6,Aug:7,Sep:8,Oct:9,Nov:10,Dec:11};
+  function mkDate(d,m){ return new Date(m>=8?2026:2027,m,d); } // plan runs Sep 2026 → May 2027
+  function parseWhen(t){
+    var parts=t.split('–').map(function(s){return s.trim();});
+    var e=/^(\d{1,2})(?:\s+([A-Z][a-z]{2}))?$/.exec(parts[1]||''), s=/^(\d{1,2})(?:\s+([A-Z][a-z]{2}))?/.exec(parts[0]);
+    if(!s) return null;
+    var sm=s[2]||(e&&e[2]); if(!(sm in MON)) return null;
+    return {start:mkDate(+s[1],MON[sm]), end:e&&e[2]?mkDate(+e[1],MON[e[2]]):null};
+  }
+  var weeks=[];
+  Array.prototype.forEach.call(document.querySelectorAll('section.phase .block'),function(b){
+    var w=b.querySelector('.block-head .when'), ul=b.querySelector('ul.check:not(.mirror)');
+    if(!w||!ul) return;
+    var r=parseWhen(w.textContent); if(r) weeks.push({block:b,ul:ul,start:r.start,end:r.end,title:b.querySelector('h3').textContent,when:w.textContent});
+  });
+  weeks.sort(function(a,b){return a.start-b.start;});
+  weeks.forEach(function(w,i){ if(!w.end) w.end=i+1<weeks.length?new Date(weeks[i+1].start-864e5):new Date(2027,4,31); });
+  var today=new Date(); today.setHours(0,0,0,0);
+  var cur=null, upcoming=false;
+  for(var i=0;i<weeks.length;i++){
+    if(today>=weeks[i].start&&today<=weeks[i].end){ cur=weeks[i]; break; }
+    if(today<weeks[i].start){ cur=weeks[i]; upcoming=true; break; } // in a gap (rest days) → show what's next
+  }
+  if(!cur&&weeks.length) cur=weeks[weeks.length-1];
+  var setup=weeks.filter(function(w){return w.block.id==='setup-block';})[0];
+  if(cur){
+    var list=document.getElementById('tw-list');
+    cur.block.classList.add('current');
+    if(!cur.block.id) cur.block.id='current-week';
+    document.getElementById('tw-title').textContent=(upcoming?'Up next · ':'')+cur.title;
+    document.getElementById('tw-when').textContent=cur.when;
+    document.getElementById('tw-jump').href='#'+cur.block.id;
+    document.getElementById('tw-range').textContent='('+cur.when+')';
+    if(cur!==setup){
+      document.getElementById('tw-block').hidden=false;
+      Array.prototype.forEach.call(cur.ul.querySelectorAll('li'),function(li){
+        var c=li.cloneNode(true), orig=li.querySelector('input'), m=c.querySelector('input'), l=c.querySelector('label');
+        m.id='tw-'+orig.id; if(l) l.setAttribute('for',m.id); m.checked=orig.checked;
+        m.addEventListener('change',function(){ orig.checked=m.checked; orig.dispatchEvent(new Event('change')); });
+        orig.addEventListener('change',function(){ m.checked=orig.checked; });
+        list.appendChild(c);
+      });
+      // keep the setup list visible only while something in it is still unticked
+      var sb=document.getElementById('setup-block');
+      var openSetup=function(){ return Array.prototype.some.call(sb.querySelectorAll('input'),function(x){return !x.checked;}); };
+      sb.querySelector('h3').textContent='Still open from setup week';
+      sb.hidden=!openSetup();
+      Array.prototype.forEach.call(sb.querySelectorAll('input'),function(x){ x.addEventListener('change',function(){ if(!openSetup()) sb.hidden=true; }); });
+    }
+  }
+
   boxes.forEach(function(b){ b.addEventListener('change',function(){ if(b.checked) state[b.id]=1; else delete state[b.id]; save(); update(); }); });
   document.getElementById('reset').addEventListener('click',function(){
     if(!confirm('Clear all ticks?')) return;
-    state={}; save(); boxes.forEach(function(b){b.checked=false;}); update();
+    state={}; save(); boxes.forEach(function(b){b.checked=false; b.dispatchEvent(new Event('change'));}); update();
   });
   update();
 
@@ -795,6 +877,18 @@ var ERROR_LOG_URL = '';
     b.querySelector('[data-summary]').textContent=!n?'Add a column after each mock.':
       n+' mock'+(n>1?'s':'')+' logged'+(worst?' · focus first on '+worst.name:scored?' · every section on target':'');
   }
+
+  // tabs: #mocks shows the score tracker on its own, anything else shows the plan
+  var tabs=Array.prototype.slice.call(document.querySelectorAll('.tabs a'));
+  function showView(){
+    var v=location.hash==='#mocks'?'mocks':'plan';
+    var changed=document.body.getAttribute('data-view')!==v;
+    document.body.setAttribute('data-view',v);
+    tabs.forEach(function(a){ a.setAttribute('aria-selected',a.getAttribute('data-tab')===v?'true':'false'); });
+    if(changed&&(v==='mocks'||location.hash==='#plan'||!location.hash)) window.scrollTo(0,0);
+  }
+  window.addEventListener('hashchange',showView);
+  showView();
 
   // active nav on scroll
   var links=Array.prototype.slice.call(document.querySelectorAll('#nav a'));
